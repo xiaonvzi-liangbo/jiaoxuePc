@@ -1,11 +1,14 @@
 <template>
-  <div class="navbar">
-    <hamburger
-      id="hamburger-container"
-      :is-active="sidebar.opened"
-      class="hamburger-container"
-      @toggleClick="toggleSideBar"
-    />
+  <div>
+    <div class="navbar">
+      <hamburger
+        id="hamburger-container"
+        :is-active="sidebar.opened"
+        class="hamburger-container"
+        @toggleClick="toggleSideBar"
+      />
+    </div>
+    <div style="width:100%;height:50px" />
   </div>
 </template>
 
@@ -59,10 +62,12 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 .navbar {
+  z-index: 100;
+  width:100%;
   height: 50px;
   overflow: hidden;
-  position: relative;
-  background: #fff;
+  position: fixed;
+  background: rgb(102, 177, 255);
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
 
   .hamburger-container {

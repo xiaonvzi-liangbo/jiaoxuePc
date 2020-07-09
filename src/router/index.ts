@@ -76,13 +76,19 @@ export const constantRoutes: RouteConfig[] = [
     path: '/',
     component: Layout,
     redirect: '/dashboard',
+    meta: {
+      title: 'education',
+      icon: 'lock',
+      roles: ['admin', 'editor'], // you can set roles in root nav
+      alwaysShow: true // will always show the root menu
+    },
     children: [
       {
         path: 'dashboard',
-        component: () => import(/* webpackChunkName: "dashboard" */ '@/views/dashboard/index.vue'),
+        component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/education/examination/plan.vue'),
         name: 'Dashboard',
         meta: {
-          title: 'dashboard',
+          title: 'examinationPlan',
           icon: 'dashboard',
           affix: true
         }

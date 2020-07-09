@@ -11,7 +11,9 @@ export default class extends Vue {
   private registration: ServiceWorkerRegistration | null = null
 
   created() {
+    // Listen for swUpdated event and display refresh notification as required.
     document.addEventListener('swUpdated', this.showRefreshUI, { once: true })
+    // Refresh all open app tabs when a new service worker is installed.
     navigator.serviceWorker.addEventListener('controllerchange', () => {
       if (this.refreshing) return
       this.refreshing = true
@@ -20,9 +22,14 @@ export default class extends Vue {
   }
 
   render() {
+    // Avoid warning for missing template
   }
 
   private showRefreshUI(e: Event) {
+    // Display a notification inviting the user to refresh/reload the app due
+    // to an app update being available.
+    // The new service worker is installed, but not yet active.
+    // Store the ServiceWorkerRegistration instance for later use.
     const h = this.$createElement
     this.registration = (e as CustomEvent).detail
     this.$notify.info({

@@ -31,7 +31,7 @@ export default class extends Vue {
   vertical-align: middle;
 }
 
-.is-active { 
+.is-active {
   transform: rotate(180deg);
 }
 </style>

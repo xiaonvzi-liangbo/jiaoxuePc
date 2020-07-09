@@ -1,31 +1,28 @@
 <template>
-  <div>
-    <div class="navbar">
-      <hamburger
-        id="hamburger-container"
-        :is-active="sidebar.opened"
-        class="hamburger-container"
-        @toggleClick="toggleSideBar"
-      />
-    </div>
-    <div style=" height: 50px;width:100%"></div>
+  <div class="navbar">
+    <hamburger
+      id="hamburger-container"
+      :is-active="sidebar.opened"
+      class="hamburger-container"
+      @toggleClick="toggleSideBar"
+    />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import { AppModule } from "@/store/modules/app";
-import { UserModule } from "@/store/modules/user";
-import Breadcrumb from "@/components/Breadcrumb/index.vue";
-import ErrorLog from "@/components/ErrorLog/index.vue";
-import Hamburger from "@/components/Hamburger/index.vue";
-import HeaderSearch from "@/components/HeaderSearch/index.vue";
-import LangSelect from "@/components/LangSelect/index.vue";
-import Screenfull from "@/components/Screenfull/index.vue";
-import SizeSelect from "@/components/SizeSelect/index.vue";
+import { Component, Vue } from 'vue-property-decorator'
+import { AppModule } from '@/store/modules/app'
+import { UserModule } from '@/store/modules/user'
+import Breadcrumb from '@/components/Breadcrumb/index.vue'
+import ErrorLog from '@/components/ErrorLog/index.vue'
+import Hamburger from '@/components/Hamburger/index.vue'
+import HeaderSearch from '@/components/HeaderSearch/index.vue'
+import LangSelect from '@/components/LangSelect/index.vue'
+import Screenfull from '@/components/Screenfull/index.vue'
+import SizeSelect from '@/components/SizeSelect/index.vue'
 
 @Component({
-  name: "Navbar",
+  name: 'Navbar',
   components: {
     Breadcrumb,
     ErrorLog,
@@ -38,38 +35,36 @@ import SizeSelect from "@/components/SizeSelect/index.vue";
 })
 export default class extends Vue {
   get sidebar() {
-    return AppModule.sidebar;
+    return AppModule.sidebar
   }
 
   get device() {
-    return AppModule.device.toString();
+    return AppModule.device.toString()
   }
 
   get avatar() {
-    return UserModule.avatar;
+    return UserModule.avatar
   }
 
   private toggleSideBar() {
-    AppModule.ToggleSideBar(false);
+    AppModule.ToggleSideBar(false)
   }
 
   private async logout() {
-    await UserModule.LogOut();
-    this.$router.push(`/login?redirect=${this.$route.fullPath}`);
+    await UserModule.LogOut()
+    this.$router.push(`/login?redirect=${this.$route.fullPath}`)
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .navbar {
-  z-index: 100;
   height: 50px;
-  width: 100%;
   overflow: hidden;
-  position: fixed;
+  position: relative;
   background: #fff;
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
-  background: rgb(102, 177, 255);
+
   .hamburger-container {
     line-height: 46px;
     height: 100%;

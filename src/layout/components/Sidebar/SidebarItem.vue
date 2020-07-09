@@ -69,10 +69,10 @@ import SidebarItemLink from './SidebarItemLink.vue'
   }
 })
 export default class extends Vue {
-  @Prop({ required: true }) private item!: RouteConfig
-  @Prop({ default: false }) private isCollapse!: boolean
-  @Prop({ default: true }) private isFirstLevel!: boolean
-  @Prop({ default: '' }) private basePath!: string
+  @Prop({ required: true }) private item!: RouteConfig;
+  @Prop({ default: false }) private isCollapse!: boolean;
+  @Prop({ default: true }) private isFirstLevel!: boolean;
+  @Prop({ default: '' }) private basePath!: string;
 
   get alwaysShowRootMenu() {
     if (this.item.meta && this.item.meta.alwaysShow) {
@@ -83,7 +83,7 @@ export default class extends Vue {
 
   get showingChildNumber() {
     if (this.item.children) {
-      const showingChildren = this.item.children.filter((item) => {
+      const showingChildren = this.item.children.filter(item => {
         if (item.meta && item.meta.hidden) {
           return false
         } else {
@@ -129,7 +129,7 @@ export default class extends Vue {
 }
 
 .full-mode {
-  .nest-menu .el-submenu>.el-submenu__title,
+  .nest-menu .el-submenu > .el-submenu__title,
   .el-submenu .el-menu-item {
     min-width: $sideBarWidth !important;
     background-color: #66b1ff !important;
@@ -154,14 +154,14 @@ export default class extends Vue {
     .el-submenu {
       overflow: hidden;
 
-      &>.el-submenu__title {
+      & > .el-submenu__title {
         padding: 0px !important;
 
         .el-submenu__icon-arrow {
           display: none;
         }
 
-        &>span {
+        & > span {
           visibility: hidden;
         }
       }

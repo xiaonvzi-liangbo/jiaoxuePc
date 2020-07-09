@@ -91,8 +91,11 @@ export default class extends Vue {
   // https://www.tiny.cloud/docs/configure/localization/#language
   // and also see langs files under public/tinymce/langs folder
   private languageTypeList: { [key: string]: string } = {
-  
-    zh: 'zh_CN',  
+    en: 'en',
+    zh: 'zh_CN',
+    es: 'es',
+    ja: 'ja',
+    ko: 'ko_KR'
   }
 
   get language() {

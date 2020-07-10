@@ -133,9 +133,10 @@ export default class extends Vue {
   .el-submenu .el-menu-item {
     min-width: $sideBarWidth !important;
     background-color: #66b1ff !important;
-
+    color: rgb(255, 238, 0) !important; 
     &:hover {
-      background-color: $subMenuHover !important;
+      color: #fff;
+      background-color:#409eff !important;
     }
   }
 }

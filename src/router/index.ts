@@ -41,7 +41,7 @@ export const constantRoutes: RouteConfig[] = [
   {
     path: '/',
     component: Layout,
-    redirect: '/dashboard',
+    redirect: '/examinationPlan',
     meta: {
       title: 'education',
       icon: 'lock',
@@ -50,11 +50,21 @@ export const constantRoutes: RouteConfig[] = [
     },
     children: [
       {
-        path: 'dashboard',
+        path: 'examinationPlan',
         component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/education/examination/plan.vue'),
         name: 'Dashboard',
         meta: {
           title: 'examinationPlan',
+          icon: 'dashboard',
+          affix: true
+        }
+      },
+      {
+        path: 'classPlan',
+        component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/education/classOpen/classPlan.vue'),
+        name: 'classPlan',
+        meta: {
+          title: 'classPlan',
           icon: 'dashboard',
           affix: true
         }
@@ -72,7 +82,7 @@ export const asyncRoutes: RouteConfig[] = [
     meta: {
       title: 'errorPages',
       icon: '404',
-      hidden: true 
+      hidden: true
     },
     children: [
       {
@@ -94,7 +104,7 @@ export const asyncRoutes: RouteConfig[] = [
         }
       }
     ]
-  }, 
+  },
   {
     path: '*',
     redirect: '/404',

@@ -49,7 +49,8 @@ router.beforeEach(async(to: Route, _: Route, next: any) => {
           // Remove token and redirect to login page
           UserModule.ResetToken()
           Message.error(err || 'Has Error')
-          next(`/login?redirect=${to.path}`)
+          // next(`/login?redirect=${to.path}`)
+          next()
           NProgress.done()
         }
       } else {
@@ -63,7 +64,8 @@ router.beforeEach(async(to: Route, _: Route, next: any) => {
       next()
     } else {
       // Other pages that do not have permission to access are redirected to the login page.
-      next(`/login?redirect=${to.path}`)
+      // next(`/login?redirect=${to.path}`)
+      next()
       NProgress.done()
     }
   }

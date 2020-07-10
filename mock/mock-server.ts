@@ -70,7 +70,7 @@ function onError(error: any) {
     throw error
   }
   const bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port
-  // handle specific listen errors with friendly messages
+ 
   switch (error.code) {
     case 'EACCES':
       console.error('Express ERROR (app) : %s requires elevated privileges', bind)

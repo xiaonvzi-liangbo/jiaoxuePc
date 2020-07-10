@@ -1,7 +1,7 @@
 export default {
   route: {
     education: '教学管理',
-    examinationPlan:'开考计划',
+    examinationPlan: '开考计划',
     dashboard: '首页',
     documentation: '文档',
     guide: '引导页',
@@ -173,5 +173,14 @@ export default {
     showSidebarLogo: '显示侧边栏 Logo',
     fixedHeader: '固定 Header',
     sidebarTextTheme: '侧边栏文字主题色'
-  }
+  },
+  qualificationsVal: [
+    "全部",
+    "本科",
+    "专科",
+    "教师资格",
+    "网教统考辅导",
+    "计算机等级",
+    "12月全日制考研",
+  ]
 }

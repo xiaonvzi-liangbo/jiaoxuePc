@@ -65,7 +65,9 @@ export default {
     externalLink: '外链',
     profile: '个人中心'
   },
+  //省份
   province: [{ id: 15, name: "山东省" }, { id: 14, name: "广东省" }],
+  //学历
   qualificationsVal: [
     "全部",
     "本科",
@@ -74,6 +76,114 @@ export default {
     "网教统考辅导",
     "计算机等级",
     "12月全日制考研",
+  ],
+  //课程类型
+  kcType: [
+    "全部",
+    "专业课",
+    "公开课",
+  ],
+  //project
+  project: [
+    '普通专升本',
+    '自学考试辅导',
+    '成考考前辅导',
+  ],
+  //考试状态
+  stateVal: ['全部', '已考', '未考'],
+  //学位类型
+  degreeType: ['全部', '专硕', '学硕'],
+  //英语四六级考试种类
+  EngType: ['全部', '四级', '六级'],
+  EngLevel: ['全部', '一级', '二级', '三级', '四级'],
+  //教师学院类别
+  teacherExamType: ['全部', '幼儿园', '小学', '初中', '高中'],
+  //造价工程师专业
+  engineerMajor:['全部', '建筑工程专业', '建筑工程专业'],
+  //医药卫生学院鉴定形式
+  appraisalForm:['全部', '理论考试', '技能操作考试', '人机对话考试', '工作现场模拟操作'],
+  //医药卫生学院鉴定级别
+  appraisalLevel:['全部', '一级', '二级', '三级'],
+
+  //院校
+  schooleVal: [{
+    name: "专本科学院",
+    types: [{
+      name: "自学考试辅导",
+      Kind: 1
+    },
+    {
+      name: "普通专升本",
+      Kind: 3
+    },
+    {
+      name: "成考考前辅导",
+      Kind: 2
+    }
+    ]
+  },
+  {
+    name: "考研学院",
+    types: [{
+      name: "专硕",
+      Kind: 20
+    }, {
+      name: "五月同等学历",
+      Kind: 21
+    }]
+  },
+  {
+    name: "语培学院",
+    types: [{
+      name: "英语四六级",
+      Kind: 5
+    },
+    {
+      name: "学位英语",
+      Kind: 51
+    }]
+  },
+  {
+    name: "教师学院",
+  },
+  {
+    name: "建筑工程学院",
+    types: [
+      {
+        name: "建造师",
+        Kind: 9
+      }, {
+        name: "工程造价实操",
+        Kind: 10
+      }, {
+        name: "造价工程师",
+        Kind: 41
+      }
+    ]
+  },
+  {
+    name: "医药卫生学院",
+    types: [
+      {
+        name: "健康管理师",
+        Kind: 71
+      }
+    ]
+  },
+  {
+    name: "财会学院"
+
+  },
+  {
+    name: "职业培训学院",
+    types: [
+      {
+        name: "计算机等级",
+        Kind: 7
+      }
+    ]
+  }
+
   ],
   login: {
     title: '系统登录',
@@ -85,33 +195,6 @@ export default {
     thirdpartyTips: '本地不能模拟，请结合自己业务进行模拟！！！'
   },
 
-
-  table: {
-    dynamicTips1: '固定表头, 按照表头顺序排序',
-    dynamicTips2: '不固定表头, 按照点击顺序排序',
-    dragTips1: '默认顺序',
-    dragTips2: '拖拽后顺序',
-    title: '标题',
-    importance: '重要性',
-    type: '类型',
-    remark: '点评',
-    search: '搜索',
-    add: '添加',
-    export: '导出',
-    reviewer: '审核人',
-    id: '序号',
-    date: '时间',
-    author: '作者',
-    readings: '阅读数',
-    status: '状态',
-    actions: '操作',
-    edit: '编辑',
-    publish: '发布',
-    draft: '草稿',
-    delete: '删除',
-    cancel: '取 消',
-    confirm: '确 定'
-  },
   tagsView: {
     refresh: '刷新',
     close: '关闭',

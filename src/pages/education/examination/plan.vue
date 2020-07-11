@@ -1,75 +1,7 @@
 <template>
   <div class="app-container">
-    <div class="choose">
-      <div class="school">
-        <div
-          :class="schoolVal==index?'on':''"
-          class="schoolItem"
-          @click="chooseSchool(index)"
-          v-for="(item,index) in 8"
-          :key="index"
-        >{{item}}</div>
-      </div>
-      <div class="chooseMajor">
-        <div class="project">
-          <div class="text">所属项目：</div>
-          <el-select v-model="projectVal" class="filter-item">
-            <el-option v-for="(item,index) in 7" :key="index" :label="item" :value="index" />
-          </el-select>
-        </div>
-        <div class="major" v-if="projectVal!=2">
-          <div class="text">所属专业：</div>
-          <el-select v-model="majorVal" class="filter-item">
-            <el-option v-for="(item,index) in 3" :key="index" :label="item" :value="index" />
-          </el-select>
-        </div>
-      </div>
-    </div>
-    <div class="screen">
-      <el-input placeholder="查询提示：专业代码/课程代码/课程名称" v-model="screenVal" class="screen-item">
-        <el-button slot="append">搜索</el-button>
-      </el-input>
-      <div class="founder">
-        <div class="text">创建人</div>
-        <el-select v-model="founderVal" class="filter-item">
-          <el-option v-for="(item,index) in 3" :key="index" :label="item" :value="index" />
-        </el-select>
-      </div>
-      <div class="province">
-        <div class="text">所属省份</div>
-        <el-select v-model="provinceVal" class="filter-item">
-          <el-option
-            v-for="(item) in $t('province')"
-            :key="item.id"
-            :label="item.name"
-            :value="item.id"
-          />
-        </el-select>
-      </div>
-      <div class="qualifications">
-        <div class="text">学历层次</div>
-        <el-select v-model="qualificationsVal" class="filter-item">
-          <el-option v-for="(item,index) in $t('qualificationsVal') " :key="index" :label="item" :value="index" />
-        </el-select>
-      </div>
-      <div class="state">
-        <div class="text">考试状态</div>
-        <el-select v-model="stateVal" class="filter-item">
-          <el-option v-for="(item,index) in 3" :key="index" :label="item" :value="index" />
-        </el-select>
-      </div>
-      <div class="time">
-        <div class="text">考试周期</div>
-        <el-date-picker
-          v-model="timeVal"
-          type="datetimerange"
-          align="right"
-          start-placeholder="开始日期"
-          range-separator="至"
-          end-placeholder="结束日期"
-        ></el-date-picker>
-      </div>
-    </div>
+    <schoole-choose from="examinationPlan"></schoole-choose>
+    <screen></screen>
     <div class="buttonRight">
       <el-button
         class="filter-item"
@@ -101,25 +33,20 @@
       highlight-current-row
       style="width: 100%;"
     >
-      <el-table-column type="selection" width="55"></el-table-column>
+      <el-table-column type="selection" width="40"></el-table-column>
       <el-table-column
         v-for="(item,index) in tabHeader"
         :key="index"
         :label="item.name"
         align="center"
-        width="80"
+        :width="item.val=='id'?'50':''"
       >
         <template slot-scope="{row}">
-          <span>{{ row.id }}</span>
+          <span>{{ row[item.val]}}</span>
         </template>
       </el-table-column>
 
-      <el-table-column
-        :label="$t('table.actions')"
-        align="center"
-        width="230"
-        class-name="fixed-width"
-      >
+      <el-table-column label="操作" align="center" width="230" class-name="fixed-width">
         <template slot-scope="{row, $index}">
           <el-button type="primary" size="mini" @click="handleUpdate(row)">编辑</el-button>
           <el-button
@@ -131,96 +58,11 @@
         </template>
       </el-table-column>
     </el-table>
-
-    <pagination
-      v-show="total>0"
-      :total="total"
-      :page.sync="listQuery.page"
-      :limit.sync="listQuery.limit"
-      @pagination="getList"
-    />
-    <!-- 创建开考计划弹窗 -->
-    <el-dialog :title="addPlan?'创建开考计划':'编辑开考计划'" :visible.sync="dialogFormVisible">
-      <el-form
-        ref="dataForm"
-        :model="tempArticleData"
-        label-position="left"
-        label-width="100px"
-        style="width: 400px; margin-left:50px;"
-      >
-        <el-form-item label="所属省份">
-          <el-select
-            v-model="tempArticleData.project"
-            class="filter-item"
-            placeholder="Please select"
-          >
-            <el-option v-for="(item,index) in 8" :key="index" :label="item" :value="index" />
-          </el-select>
-        </el-form-item>
-        <el-form-item label="主考院校">
-          <el-select
-            v-model="tempArticleData.schoole"
-            class="filter-item"
-            placeholder="Please select"
-          >
-            <el-option v-for="(item,index) in 8" :key="index" :label="item" :value="index" />
-          </el-select>
-        </el-form-item>
-        <el-form-item label="专业名称">
-          <el-select
-            v-model="tempArticleData.major"
-            class="filter-item"
-            placeholder="Please select"
-          >
-            <el-option v-for="(item,index) in 8" :key="index" :label="item" :value="index" />
-          </el-select>
-        </el-form-item>
-        <el-form-item label="课程名称">
-          <el-select
-            v-model="tempArticleData.kcName"
-            class="filter-item"
-            placeholder="Please select"
-          >
-            <el-option v-for="(item,index) in 8" :key="index" :label="item" :value="index" />
-          </el-select>
-        </el-form-item>
-        <el-form-item label="课程代码">
-          <el-input v-model="tempArticleData.kcCode" />
-        </el-form-item>
-        <el-form-item label="考试日期">
-          <el-date-picker v-model="tempArticleData.time" type="date" placeholder="选择日期" />
-        </el-form-item>
-
-        <el-form-item label="具体时段">
-          <div class="time-select">
-            <el-time-select
-              placeholder="起始时间"
-              v-model="tempArticleData.startTime"
-              :picker-options="{start: '08:30',step: '00:15',end: '18:30'}"
-            ></el-time-select>
-            <el-time-select
-              placeholder="结束时间"
-              v-model="tempArticleData.endTime"
-              :picker-options="{start: '08:30',step: '00:15',end: '18:30',minTime: tempArticleData.startTime}"
-            ></el-time-select>
-          </div>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取消</el-button>
-        <el-button type="primary" @click="addPlan?createData():''">确定</el-button>
-      </div>
-    </el-dialog>
-
-    <el-dialog :visible.sync="dialogPageviewsVisible" title="Reading statistics">
-      <el-table :data="pageviewsData" border fit highlight-current-row style="width: 100%">
-        <el-table-column prop="key" label="Channel" />
-        <el-table-column prop="pageviews" label="Pageviews" />
-      </el-table>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="dialogPageviewsVisible = false">{{ $t('table.confirm') }}</el-button>
-      </span>
-    </el-dialog>
+    <add-plan
+      :addPlanType="addPlanType"
+      @dialogChang="dialogChang"
+      :dialogFormVisible="dialogFormVisible"
+    ></add-plan>
   </div>
 </template>
 <script lang="ts">
@@ -238,55 +80,43 @@ import { IArticleData } from "@/api/types";
 import { exportJson2Excel } from "@/utils/excel";
 import { formatJson } from "@/utils";
 import Pagination from "@/components/Pagination/index.vue";
+import screen from "@/components/examinationPlan/screen.vue";
+import schooleChoose from "@/components/examinationPlan/schooleChoose.vue";
+import addPlan from "@/components/examinationPlan/addPlan.vue";
+
 import { log } from "util";
 
 @Component({
   name: "ComplexTable",
   components: {
-    Pagination
+    Pagination,
+    screen,
+    schooleChoose,
+    addPlan
   }
 })
 export default class extends Vue {
-  schoolVal: number = 0; //院校
-  projectVal: number = 0; //项目
-  majorVal: number = 0; //专业
-  screenVal: string = ""; //搜索
-  founderVal: number = 0; //创建人
-  provinceVal: number = 15; //省份
-  qualificationsVal: number = 0; //学历
-  stateVal: number = 0; //考试状态
-  timeVal: string = ""; //时间
-  tempArticleData: any = {
-    project: "",
-    schoole: "",
-    major: "",
-    kcName: "",
-    kcCode: "",
-    time: "",
-    startTime: "",
-    endTime: ""
-  }; //创建开考计划
-  addPlan: boolean = true; //弹窗创建或是修改
+  addPlanType: boolean = true; //弹窗创建或是修改
   private downloadLoading = false;
   list: any[] = [];
-
+  projectVal = "";
   tabHeader = [
     { name: "序号", val: "id" },
-    { name: "专业代码", val: "id" },
-    { name: "专业名称", val: "id" },
-    { name: "学历层次", val: "id" },
-    { name: "所属省份", val: "id" },
-    { name: "主考院校", val: "id" },
-    { name: "课程名称", val: "id" },
-    { name: "课程代码", val: "id" },
-    { name: "考试日期", val: "id" },
-    { name: "考试状态", val: "id" },
-    { name: "具体时间", val: "id" },
-    { name: "创建时间", val: "id" },
-    { name: "创建人", val: "id" }
+    { name: "专业代码", val: "title" },
+    { name: "专业名称", val: "type" },
+    { name: "学历层次", val: "timestamp" },
+    { name: "所属省份", val: "title" },
+    { name: "主考院校", val: "status" },
+    { name: "课程名称", val: "status" },
+    { name: "课程代码", val: "timestamp" },
+    { name: "考试日期", val: "status" },
+    { name: "考试状态", val: "status" },
+    { name: "具体时间", val: "timestamp" },
+    { name: "创建时间", val: "timestamp" },
+    { name: "创建人", val: "status" }
   ];
+
   private tableKey = 0;
-  private total = 0;
   private listLoading = true;
   private listQuery = {
     page: 1,
@@ -298,32 +128,21 @@ export default class extends Vue {
   };
   private showReviewer = false;
   private dialogFormVisible = false;
-
-  private dialogPageviewsVisible = false;
   private pageviewsData = [];
 
   created() {
     this.getList();
   }
-  //院校选中
-  chooseSchool(val: number) {
-    this.schoolVal = val;
+  //关闭弹窗
+  dialogChang() {
+    this.dialogFormVisible = false;
   }
   //创建开考计划按钮点击事件
   private handleCreate() {
-    this.addPlan = true;
+    this.addPlanType = true;
     this.dialogFormVisible = true;
   }
-  //创建开考计划
-  private createData() {
-    console.log(this.tempArticleData);
-    this.$notify({
-      title: "成功",
-      message: "创建成功",
-      type: "success",
-      duration: 2000
-    });
-  }
+
   //导出数据
   private handleDownload() {
     this.downloadLoading = true;
@@ -335,13 +154,8 @@ export default class extends Vue {
   }
   //编辑
   private handleUpdate(row: any) {
-    this.addPlan = false;
-    // this.tempArticleData = Object.assign({}, row);
-    // this.tempArticleData.timestamp = +new Date(this.tempArticleData.timestamp);
+    this.addPlanType = false;
     this.dialogFormVisible = true;
-    /*   this.$nextTick(() => {
-      (this.$refs.dataForm as Form).clearValidate();
-    }); */
   }
   //删除
   private handleDelete(row: any, index: number) {
@@ -357,7 +171,6 @@ export default class extends Vue {
     this.listLoading = true;
     const { data } = await getArticles(this.listQuery);
     this.list = data.items;
-    this.total = data.total;
     // Just to simulate the time of the request
     setTimeout(() => {
       this.listLoading = false;
@@ -369,92 +182,14 @@ export default class extends Vue {
 .filter-item {
   width: 130px;
 }
-.choose {
-  border: 1px solid #dfe6ec;
-  width: 100%;
-  height: 150px;
-  margin-bottom: 20px;
 
-  .school {
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    padding: 20px 20px 20px 0;
-    .schoolItem {
-      border: 1px solid #dfe6ec;
-      width: 210px;
-      height: 62px;
-      line-height: 62px;
-      text-align: center;
-      color: #626261;
-      margin-left: 20px;
-    }
-    .schoolItem:hover {
-      color: #fff;
-      background-color: #40a9ff;
-    }
-    .on {
-      color: #fff;
-      background-color: #0099ff;
-    }
-  }
-  .chooseMajor {
-    width: 100%;
-    padding: 0 20px;
-    display: flex;
-    .text {
-      font-weight: bold;
-    }
-    .project,
-    .major {
-      display: flex;
-      align-items: center;
-    }
-    .project {
-      margin-right: 20px;
-    }
-  }
-}
-.screen {
-  border: 1px solid #d1d1d1;
-  padding: 20px;
-  display: flex;
-  .screen-item {
-    width: 380px;
-    .el-input__inner {
-      border: 1px solid #8c8c8c;
-    }
-  }
-  .founder,
-  .province,
-  .qualifications,
-  .state,
-  .time {
-    display: flex;
-    align-items: center;
-    margin-left: 20px;
-    flex-shrink: 1;
-  }
-  .el-range-editor.el-input__inner {
-    flex-shrink: 1 !important;
-  }
-  .text {
-    flex-shrink: 0;
-    margin-right: 10px;
-  }
-}
 .buttonRight {
   width: 100%;
   display: flex;
   justify-content: flex-end;
   margin: 10px 0 20px;
 }
-.time-select {
-  display: flex;
-  .el-date-editor {
-    margin-right: 20px;
-  }
-}
+
 .pagination-container {
   float: right;
 }

@@ -38,13 +38,18 @@
       <div class="province">
         <div class="text">所属省份</div>
         <el-select v-model="provinceVal" class="filter-item">
-          <el-option v-for="(item,index) in 3" :key="index" :label="item" :value="index" />
+          <el-option
+            v-for="(item) in $t('province')"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id"
+          />
         </el-select>
       </div>
       <div class="qualifications">
         <div class="text">学历层次</div>
         <el-select v-model="qualificationsVal" class="filter-item">
-          <el-option v-for="(item,index) in 5" :key="index" :label="item" :value="index" />
+          <el-option v-for="(item,index) in $t('qualificationsVal') " :key="index" :label="item" :value="index" />
         </el-select>
       </div>
       <div class="state">
@@ -63,13 +68,6 @@
           range-separator="至"
           end-placeholder="结束日期"
         ></el-date-picker>
-        <!-- <el-date-picker
-          v-model="value1"
-          type="daterange"
-          range-separator="至"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期"
-        ></el-date-picker>-->
       </div>
     </div>
     <div class="buttonRight">
@@ -254,7 +252,7 @@ export default class extends Vue {
   majorVal: number = 0; //专业
   screenVal: string = ""; //搜索
   founderVal: number = 0; //创建人
-  provinceVal: number = 0; //省份
+  provinceVal: number = 15; //省份
   qualificationsVal: number = 0; //学历
   stateVal: number = 0; //考试状态
   timeVal: string = ""; //时间

@@ -11,14 +11,14 @@
         >{{item.name}}</div>
       </div>
       <div v-if="$t('schooleVal['+schoolVal+'].name')=='教师学院'" class="chooseMajor">
-        <div class="examType">
+        <div class="chooseMajor-item">
           <div class="text">考试类型：</div>
           <div @click="examTypeChoose(0)" :class="examTypeVal==0?'examTypeText':'examTypeNo'">笔试</div>
           <div @click="examTypeChoose(1)" :class="examTypeVal==1?'examTypeText':'examTypeNo'">面试</div>
         </div>
       </div>
       <div v-else class="chooseMajor">
-        <div class="project">
+        <div class="chooseMajor-item">
           <div class="text">所属项目：</div>
           <el-select v-model="projectVal" class="filter-item" @change="projectchange()">
             <el-option
@@ -29,13 +29,27 @@
             />
           </el-select>
         </div>
-        <div class="major" v-if="projectVal==1||projectVal==2">
+        <div class="chooseMajor-item" v-if="projectVal==1&&from=='classPlan'">
+          <div class="text">学历层次：</div>
+          <el-select v-model="qualificationsVal" class="filter-item">
+            <el-option
+              v-for="(item,index) in $t('qualifications')"
+              :key="index"
+              :label="item"
+              :value="index"
+            />
+          </el-select>
+        </div>
+        <div
+          class="chooseMajor-item"
+          v-if="projectVal==1||projectVal==2 ||projectVal==3&&from=='classPlan'"
+        >
           <div class="text">所属专业：</div>
           <el-select v-model="majorVal" class="filter-item">
             <el-option v-for="(item,index) in 3" :key="index" :label="item" :value="index" />
           </el-select>
         </div>
-        <div class="examType" v-if="projectVal==20">
+        <div class="chooseMajor-item" v-if="projectVal==20">
           <div class="text">考试类型：</div>
           <div class="examTypeText">初试</div>
         </div>
@@ -56,6 +70,7 @@ export default class extends Vue {
   majorVal: number = 0; //专业
   examTypeVal: number = 0; //考试类型
   @Prop() from!: string; //所属页面
+  qualificationsVal: number = 0; // 学历层次：
   created() {
     this.schoolVal = 0;
     this.projectVal = 1;
@@ -126,14 +141,10 @@ export default class extends Vue {
     .text {
       font-weight: bold;
     }
-    .project,
-    .major,
-    .examType {
+    .chooseMajor-item {
       display: flex;
       align-items: center;
       cursor: pointer; //鼠标变小手
-    }
-    .project {
       margin-right: 20px;
     }
     .examTypeText {

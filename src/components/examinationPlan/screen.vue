@@ -404,7 +404,7 @@
         ></el-date-picker>
       </div>
     </div>
-     <div class="screen" v-if="$t('schooleVal['+schoolVal+'].name')=='职业培训学院'">
+    <div class="screen" v-if="$t('schooleVal['+schoolVal+'].name')=='职业培训学院'">
       <el-input placeholder="查询提示：专业代码/课程代码/课程名称" v-model="screenVal" class="screen-item">
         <el-button slot="append">搜索</el-button>
       </el-input>
@@ -465,6 +465,7 @@ import Bus from "../../utils/bus.js";
 export default class extends Vue {
   schoolVal: number = 0;
   projectVal: number = 1;
+  screenData: any = {};
   screenVal: string = ""; //搜索
   founderVal: number = 0; //创建人
   provinceVal: number = 15; //省份
@@ -485,6 +486,116 @@ export default class extends Vue {
       this.projectVal = e.projectVal;
       this.schoolVal = e.schoolVal;
       console.log(`传来的数据是：${e}`);
+    });
+  }
+  //创建开考计划
+  private createData() {
+    if (this.$t("schooleVal[" + this.schoolVal + "].name") == "教师学院") {
+      this.screenData = {
+        teacherExamTypeVal: this.teacherExamTypeVal,
+        stateVal: this.stateVal,
+        screenVal: this.screenVal,
+        timeVal: this.timeVal
+      };
+    } else if (
+      this.$t("schooleVal[" + this.schoolVal + "].name") == "建筑工程学院"
+    ) {
+      this.screenData = {
+        engineerMajorVal: this.engineerMajorVal,
+        stateVal: this.stateVal,
+        screenVal: this.screenVal,
+        timeVal: this.timeVal
+      };
+    } else if (
+      this.$t("schooleVal[" + this.schoolVal + "].name") == "医药卫生学院"
+    ) {
+      this.screenData = {
+        appraisalLevelVal: this.appraisalLevelVal,
+        appraisalFormVal: this.appraisalFormVal,
+        stateVal: this.stateVal,
+        screenVal: this.screenVal,
+        timeVal: this.timeVal
+      };
+    } else if (
+      this.$t("schooleVal[" + this.schoolVal + "].name") == "职业培训学院"
+    ) {
+      this.screenData = {
+        screenVal: this.screenVal,
+        timeVal: this.timeVal,
+        appraisalLevelVal: this.appraisalLevelVal,
+        appraisalFormVal: this.appraisalFormVal,
+        stateVal: this.stateVal
+      };
+    } else {
+      switch (this.projectVal) {
+        case 1:
+          this.screenData = {
+            screenVal: this.screenVal,
+            timeVal: this.timeVal,
+            founderVal: this.founderVal,
+            provinceVal: this.provinceVal,
+            qualificationsVal: this.qualificationsVal,
+            stateVal: this.stateVal
+          };
+          break;
+        case 2:
+          this.screenData = {
+            stageVal: this.stageVal,
+            stateVal: this.stateVal,
+            screenVal: this.screenVal,
+            timeVal: this.timeVal
+          };
+        case 3:
+          this.screenData = {
+            categoryVal: this.categoryVal,
+            stateVal: this.stateVal,
+            screenVal: this.screenVal,
+            timeVal: this.timeVal
+          };
+          break;
+        case 20:
+          this.screenData = {
+            degreeTypeVale: this.degreeTypeVale,
+            stateVal: this.stateVal,
+            screenVal: this.screenVal,
+            timeVal: this.timeVal
+          };
+          break;
+        case 21:
+          this.screenData = {
+            provinceVal: this.provinceVal,
+            stateVal: this.stateVal,
+            screenVal: this.screenVal,
+            timeVal: this.timeVal
+          };
+          break;
+        case 5:
+          this.screenData = {
+            EngTypeVal: this.EngTypeVal,
+            stateVal: this.stateVal,
+            screenVal: this.screenVal,
+            timeVal: this.timeVal
+          };
+          break;
+        case 51:
+          this.screenData = {
+            EngLevelVal: this.EngLevelVal,
+            stateVal: this.stateVal,
+            screenVal: this.screenVal,
+            timeVal: this.timeVal
+          };
+          break;
+        default:
+          break;
+      }
+    }
+
+    console.log(this.screenData);
+    this.$notify({
+      title: "成功",
+      message: "创建成功",
+      type: "success",
+      duration: 2000
     });
   }
 }

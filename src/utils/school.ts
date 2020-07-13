@@ -3,10 +3,11 @@ export class Active {
 
 
   // 获取活动详情
-  async getSchoolList() {
+  async getSchoolList(data: any) {
     request({
-      url: `/wangxiao/kind/getKindList`,
+      url: `/wangxiao/kind/getKindListPage`,
       method: 'get',
+      data
 
     })
 

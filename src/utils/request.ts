@@ -3,9 +3,10 @@ import { Message, MessageBox } from 'element-ui'
 import { UserModule } from '@/store/modules/user'
 
 const service = axios.create({
-
-  baseURL: "http://192.168.2.103:8021", // url = base url + request url
+  baseURL: "http://192.168.2.103:8021",
+  // baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
   timeout: 5000
+  // withCredentials: true // send cookies when cross-domain requests
 })
 
 // Request interceptors
@@ -46,7 +47,7 @@ service.interceptors.response.use(
           location.reload() // To prevent bugs from vue-router
         })
       }
-      return Promise.reject(new Error(res.message || 'Error'))
+      // return Promise.reject(new Error(res.message || 'Error'))
     } else {
       return response.data
     }

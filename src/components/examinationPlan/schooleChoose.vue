@@ -74,7 +74,7 @@ export default class extends Vue {
   @Prop() from!: string; //所属页面
   qualificationsVal: number = 0; // 学历层次：
   created() {
-    active.getSchoolList()
+    active.getSchoolList({ pageNum: 0, pageSize: 10 });
     this.schoolVal = 0;
     this.projectVal = 1;
   }

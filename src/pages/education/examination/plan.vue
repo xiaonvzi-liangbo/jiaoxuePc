@@ -69,13 +69,6 @@
 import { Component, Vue } from "vue-property-decorator";
 import { Form } from "element-ui";
 import { cloneDeep } from "lodash";
-import {
-  getArticles,
-  getPageviews,
-  createArticle,
-  updateArticle,
-  defaultArticleData
-} from "@/api/articles";
 import { IArticleData } from "@/api/types";
 import { exportJson2Excel } from "@/utils/excel";
 import { formatJson } from "@/utils";
@@ -168,13 +161,7 @@ export default class extends Vue {
     this.list.splice(index, 1);
   }
   private async getList() {
-    this.listLoading = true;
-    const { data } = await getArticles(this.listQuery);
-    this.list = data.items;
-    // Just to simulate the time of the request
-    setTimeout(() => {
-      this.listLoading = false;
-    }, 0.5 * 1000);
+
   }
 }
 </script>

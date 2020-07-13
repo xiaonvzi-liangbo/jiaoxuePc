@@ -13,7 +13,7 @@
       :class="{hasTagsView: showTagsView}"
       class="main-container"
     >
-      <div :class="{'fixed-header': fixedHeader}">
+      <div style="height:60px" :class="{'fixed-header': fixedHeader}">
         <navbar />
         <!-- <tags-view v-if="showTagsView" /> -->
       </div>

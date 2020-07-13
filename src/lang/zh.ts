@@ -2,6 +2,7 @@ export default {
   route: {
     education: '教学管理',
     examinationPlan: '开考计划',
+    addClassPlan: '开课计划',
     classPlan: '开课计划',
     dashboard: '首页',
     documentation: '文档',
@@ -77,12 +78,16 @@ export default {
     "计算机等级",
     "12月全日制考研",
   ],
-    //专本科院校学历
-    qualifications: [
-      "全部",
-      "本科",
-      "专科",
-    ],
+  //课程阶段
+  kcStage: [
+    "全部", "高起专", "专升本",
+  ],
+  //专本科院校学历
+  qualifications: [
+    "全部",
+    "本科",
+    "专科",
+  ],
   //课程类型
   kcType: [
     "全部",
@@ -134,6 +139,9 @@ export default {
     types: [{
       name: "专硕",
       Kind: 20
+    }, {
+      name: "学硕",
+      Kind: 22
     }, {
       name: "五月同等学历",
       Kind: 21

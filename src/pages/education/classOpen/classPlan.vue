@@ -63,7 +63,7 @@
 </template>
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { Form } from "element-ui";
+import { Form, Tree } from "element-ui";
 import { cloneDeep } from "lodash";
 import {
   getArticles,
@@ -76,8 +76,9 @@ import { exportJson2Excel } from "@/utils/excel";
 
 import { formatJson } from "@/utils";
 import Pagination from "@/components/Pagination/index.vue";
-import screen from "@/components/examinationPlan/screen.vue";
+import screen from "@/components/examinationPlan/classScreen.vue";
 import schooleChoose from "@/components/examinationPlan/schooleChoose.vue";
+import Bus from "../../../utils/bus.js";
 @Component({
   name: "ComplexTable",
   components: {
@@ -88,7 +89,7 @@ import schooleChoose from "@/components/examinationPlan/schooleChoose.vue";
 })
 export default class extends Vue {
   schoolVal: number = 0; //院校
-  projectVal: number = 0; //项目
+  projectVal: number = 1; //项目
   majorVal: number = 0; //专业
   screenVal: string = ""; //搜索
   provinceVal: number = 15; //省份
@@ -105,7 +106,7 @@ export default class extends Vue {
     startTime: "",
     endTime: ""
   }; //创建开考计划
-  addPlan: boolean = true; //弹窗创建或是修改
+  addPlanType: boolean = true; //弹窗创建或是修改
   private downloadLoading = false;
   list: any[] = [];
 
@@ -137,35 +138,26 @@ export default class extends Vue {
   private pageviewsData = [];
 
   created() {
+    Bus.$on("projectVal", (e: any) => {
+      this.projectVal = e.projectVal;
+      this.schoolVal = e.schoolVal;
+      console.log(`传来的数据是：${e}`);
+    });
     this.getList();
-  }
-  //院校选中
-  chooseSchool(val: number) {
-    this.schoolVal = val;
-    let data = this.$t("schooleVal[" + this.schoolVal + "].types[0].Kind");
-    console.log(typeof data);
-    if (typeof data == "number") {
-      this.projectVal = data;
-    } else {
-      this.projectVal = 0;
-    }
   }
   //创建开考计划按钮点击事件
   private handleCreate() {
-    this.addPlan = true;
-    this.dialogFormVisible = true;
-  }
-  //创建开考计划
-  private createData() {
-    console.log(this.tempArticleData);
-    this.$notify({
-      title: "成功",
-      message: "创建成功",
-      type: "success",
-      duration: 2000
+    let data: any = {
+      schoolVal: this.schoolVal,
+      projectVal: this.projectVal,
+      title: this.$t("schooleVal[" + this.schoolVal + "].name")
+    };
+    this.$router.push({
+      path: "/addClassPlan",
+      query: data
     });
   }
-  //导出数据
+  //导出数据按钮点击事件
   private handleDownload() {
     this.downloadLoading = true;
     const tHeader = ["timestamp", "title", "type", "importance", "status"];
@@ -174,17 +166,20 @@ export default class extends Vue {
     exportJson2Excel(tHeader, data, "table-list");
     this.downloadLoading = false;
   }
-  //编辑
+  //编辑按钮点击事件
   private handleUpdate(row: any) {
-    this.addPlan = false;
-    // this.tempArticleData = Object.assign({}, row);
-    // this.tempArticleData.timestamp = +new Date(this.tempArticleData.timestamp);
-    this.dialogFormVisible = true;
-    /*   this.$nextTick(() => {
-      (this.$refs.dataForm as Form).clearValidate();
-    }); */
+    let data: any = {
+      schoolVal: this.schoolVal,
+      projectVal: this.projectVal,
+      title: this.$t("schooleVal[" + this.schoolVal + "].name"),
+      addPlanType: false
+    };
+    this.$router.push({
+      path: "/addClassPlan",
+      query: data
+    });
   }
-  //删除
+  //删除按钮点击事件
   private handleDelete(row: any, index: number) {
     this.$notify({
       title: "Success",

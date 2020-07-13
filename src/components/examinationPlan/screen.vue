@@ -126,7 +126,7 @@
         ></el-date-picker>
       </div>
     </div>
-    <div class="screen" v-if="projectVal==20">
+    <div class="screen" v-if="projectVal==20||projectVal==22">
       <el-input placeholder="查询提示：专业代码/课程代码/课程名称" v-model="screenVal" class="screen-item">
         <el-button slot="append">搜索</el-button>
       </el-input>

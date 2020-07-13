@@ -12,7 +12,7 @@
         :collapse-transition="false"
         mode="vertical"
       >
-        <img class="logo" src="https://staticfile.xlcwx.com/m-images/home/logo.png" />
+        <img class="logo" src="https://axure-file.lanhuapp.com/099d8bc2-c4a5-4bcc-892a-2dc69f90df41__28977e5bb096b8447f816575cac46a6b.png" />
         <sidebar-item
           v-for="route in routes"
           :key="route.path"
@@ -110,6 +110,8 @@ export default class extends Vue {
 }
 .logo{
   margin:  20px 59px;
+  width: 70px;
+  height: 70px;
 }
 .el-scrollbar {
   height: 100%;

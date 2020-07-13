@@ -49,7 +49,7 @@
             <el-option v-for="(item,index) in 3" :key="index" :label="item" :value="index" />
           </el-select>
         </div>
-        <div class="chooseMajor-item" v-if="projectVal==20">
+        <div class="chooseMajor-item" v-if="projectVal==20||projectVal==22">
           <div class="text">考试类型：</div>
           <div class="examTypeText">初试</div>
         </div>
@@ -60,6 +60,8 @@
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import Bus from "../../utils/bus.js";
+import { Active } from "../../utils/school";
+let active = new Active();
 @Component({
   name: "screen",
   components: {}
@@ -72,6 +74,7 @@ export default class extends Vue {
   @Prop() from!: string; //所属页面
   qualificationsVal: number = 0; // 学历层次：
   created() {
+    active.getSchoolList()
     this.schoolVal = 0;
     this.projectVal = 1;
   }

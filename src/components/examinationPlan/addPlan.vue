@@ -5,7 +5,7 @@
       <el-dialog :title="addPlanType?'创建开考计划':'编辑开考计划'" :visible.sync="dialog">
         <el-form label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
           <el-form-item label="所属省份">
-            <el-select v-model="project" class="filter-item" placeholder="Please select">
+            <el-select v-model="province" class="filter-item" placeholder="Please select">
               <el-option
                 v-for="(item) in $t('province')"
                 :key="item.id"
@@ -61,7 +61,7 @@
       <el-dialog :title="addPlanType?'创建开考计划':'编辑开考计划'" :visible.sync="dialog">
         <el-form label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
           <el-form-item label="所属省份">
-            <el-select v-model="project" class="filter-item" placeholder="Please select">
+            <el-select v-model="province" class="filter-item" placeholder="Please select">
               <el-option
                 v-for="(item) in $t('province')"
                 :key="item.id"
@@ -590,12 +590,11 @@ export default class extends Vue {
       this.$emit("dialogChang", this.dialog);
     }
   }
-  @Prop()
-  addPlanType!: boolean; //所属页面
+  @Prop() addPlanType!: boolean; //所属页面
   tempArticleData: any = {};
   schoolVal: number = 0;
   projectVal: number = 1;
-  project: number = 15; //所属省份
+  province: number = 15; //所属省份
   schoole: number = 0; //主考院校
   major: number = 0; //专业名称
   kcName: number = 0; //课程名称

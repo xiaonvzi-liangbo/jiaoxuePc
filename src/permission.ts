@@ -24,15 +24,12 @@ const getPageTitle = (key: string) => {
 router.beforeEach(async(to: Route, _: Route, next: any) => {
   // Start progress bar
   NProgress.start()
-
-  // Determine whether the user has logged in
+ 
   if (UserModule.token) {
     if (to.path === '/login') {
-      // If is logged in, redirect to the home page
       next({ path: '/' })
       NProgress.done()
-    } else {
-      // Check whether the user has obtained his permission roles
+    } else { 
       if (UserModule.roles.length === 0) {
         try {
           // Note: roles must be a object array! such as: ['admin'] or ['developer', 'editor']
@@ -60,12 +57,11 @@ router.beforeEach(async(to: Route, _: Route, next: any) => {
   } else {
     // Has no token
     if (whiteList.indexOf(to.path) !== -1) {
-      // In the free login whitelist, go directly
       next()
     } else {
       // Other pages that do not have permission to access are redirected to the login page.
-      // next(`/login?redirect=${to.path}`)
-      next()
+      next(`/login?redirect=${to.path}`)
+      // next()
       NProgress.done()
     }
   }

@@ -71,7 +71,7 @@ export const constantRoutes: RouteConfig[] = [
       },
       {
         path: 'addClassPlan',
-        component: () => import(/* webpackChunkName: "dashboard" */ '@/components/examinationPlan/addClassPlan.vue'),
+        component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/education/classOpen/addClassPlan.vue'),
         name: 'addClassPlan',
         meta: {
           title: 'addClassPlan',

@@ -68,7 +68,7 @@
         style="width:100%; margin-bottom:30px;"
         @click.native.prevent="handleLogin"
       >
-        {{ $t('login.logIn') }}
+        登录。。。
       </el-button>
 
       <div style="position:relative">

@@ -1,4 +1,5 @@
 <template>
+ <!-- 开课计划搜索区域组件 -->
   <div>
     <div class="screen">
       <div class="screen-div" v-if="projectVal=1||projectVal==3||projectVal==2">
@@ -17,10 +18,10 @@
           <div class="text">课程类型</div>
           <el-select v-model="kcTypeVal" class="filter-item">
             <el-option
-              v-for="(item,index) in  $t('kcType')"
-              :key="index"
-              :label="item"
-              :value="index"
+              v-for="(item) in  $t('kcType')"
+              :key="item.key"
+              :label="item.name"
+              :value="item.key"
             />
           </el-select>
         </div>
@@ -28,23 +29,23 @@
           <div class="text">课程阶段</div>
           <el-select v-model="stageVal" class="filter-item">
             <el-option
-              v-for="(item,index) in $t('kcStage') "
-              :key="index"
-              :label="item"
-              :value="index"
+              v-for="(item) in $t('kcStage') "
+              :key="item.key"
+              :label="item.name"
+              :value="item.key"
             />
           </el-select>
         </div>
       </div>
-      <div class="screen-div-item" v-if="projectVal==20||projectVal==22">
+      <div class="screen-div-item" v-if="projectVal==9||projectVal==8">
         <div class="screen-div-item">
           <div class="text">课程类型</div>
           <el-select v-model="kcTypeVal" class="filter-item">
             <el-option
-              v-for="(item,index) in  $t('kcType')"
-              :key="index"
-              :label="item"
-              :value="index"
+              v-for="(item) in  $t('kcType')"
+              :key="item.key"
+              :label="item.name"
+              :value="item.key"
             />
           </el-select>
         </div>
@@ -56,15 +57,15 @@
           </el-select>
         </div>
       </div>
-      <div class="screen-div-item" v-if="projectVal==21">
+      <div class="screen-div-item" v-if="projectVal==10">
         <div class="screen-div-item">
           <div class="text">一级学科</div>
           <el-select v-model="oneCategory" class="filter-item">
             <el-option
-              v-for="(item,index) in  $t('kcType')"
-              :key="index"
-              :label="item"
-              :value="index"
+              v-for="(item) in  $t('kcType')"
+              :key="item.key"
+              :label="item.name"
+              :value="item.key"
             />
           </el-select>
         </div>
@@ -72,10 +73,10 @@
           <div class="text">二级学科</div>
           <el-select v-model="twoCategory" class="filter-item">
             <el-option
-              v-for="(item,index) in  $t('kcType')"
-              :key="index"
-              :label="item"
-              :value="index"
+              v-for="(item) in  $t('kcType')"
+              :key="item.key"
+              :label="item.name"
+              :value="item.key"
             />
           </el-select>
         </div>
@@ -92,31 +93,28 @@
           <div class="text">考试种类</div>
           <el-select v-model="EngTypeVal" class="filter-item">
             <el-option
-              v-for="(item,index)  in $t('EngType')"
-              :key="index"
-              :label="item"
-              :value="index"
+              v-for="(item)  in $t('EngType')"
+              :key="item.key"
+              :label="item.name"
+              :value="item.key"
             />
           </el-select>
         </div>
       </div>
-      <div class="screen-div-item" v-if="$t('schooleVal['+schoolVal+'].name')=='教师学院'">
+      <div class="screen-div-item" v-if="schoolList[schoolVal].name=='教师学院'">
         <div class="screen-div-item">
           <div class="text">类别</div>
           <el-select v-model="category" class="filter-item">
             <el-option
-              v-for="(item,index)  in $t('teacherExamType')"
-              :key="index"
-              :label="item"
-              :value="index"
+              v-for="(item)  in $t('teacherExamType')"
+              :key="item.key"
+              :label="item.name"
+              :value="item.key"
             />
           </el-select>
         </div>
       </div>
-      <div
-        class="screen-div-item"
-        v-if="$t('schooleVal['+schoolVal+'].name')=='建筑工程学院'||$t('schooleVal['+schoolVal+'].name')=='医药卫生学院'||$t('schooleVal['+schoolVal+'].name')=='职业培训学院'"
-      >
+      <div class="screen-div-item" v-if="schoolKind==16||schoolKind==13||schoolKind==18">
         <div class="screen-div-item">
           <div class="text">专业</div>
           <el-select v-model="major" class="filter-item">
@@ -150,31 +148,37 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import Bus from "../../utils/bus.js";
+import { Active } from "../../utils/school";
+let active = new Active();
 @Component({
   name: "screen",
   components: {}
 })
 export default class extends Vue {
+  schoolList: any = "";
+  schoolKind: number | null = null;
   schoolVal: number = 0;
   projectVal: number = 1;
   screenData: any = {};
   screenVal: string = ""; //搜索
   provinceVal: number = 15; //省份
-  kcTypeVal: number = 0; //课程类型
+  kcTypeVal: string = ""; //课程类型
   teacherVal: number = 0; //授课老师
   timeVal: string = ""; //时间
-  stageVal: number = 0; //课程阶段
+  stageVal: string = ""; //课程阶段
   categoryVal: number = 0; //门类
   oneCategory: number = 0; // 一级学科
   twoCategory: number = 0; // 二级学科
-  EngTypeVal: number = 0; //英语四六级考试种类
-  category: number = 0; //类别
+  EngTypeVal: number | string = ""; //英语四六级考试种类
+  category: string = ""; //类别
   major: number = 0; //专业
-  created() {
+  async created() {
+    let data = await active.getAllKindList();
+    this.schoolList = data.data;
     Bus.$on("projectVal", (e: any) => {
+      this.schoolKind = e.schoolKind;
       this.projectVal = e.projectVal;
       this.schoolVal = e.schoolVal;
-      console.log(`传来的数据是：${e}`);
     });
   }
   private sreen() {

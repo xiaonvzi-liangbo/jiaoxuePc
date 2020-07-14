@@ -1,4 +1,5 @@
 <template>
+  <!-- 开考计搜索区域-->
   <div>
     <div class="screen" v-if="projectVal==1">
       <el-input placeholder="查询提示：专业代码/课程代码/课程名称" v-model="screenVal" class="screen-item">
@@ -25,10 +26,10 @@
         <div class="text">学历层次</div>
         <el-select v-model="qualificationsVal" class="filter-item">
           <el-option
-            v-for="(item,index) in $t('qualificationsVal') "
-            :key="index"
-            :label="item"
-            :value="index"
+            v-for="(item) in $t('qualificationsVal') "
+            :key="item.key"
+            :label="item.name"
+            :value="item.key"
           />
         </el-select>
       </div>
@@ -36,10 +37,10 @@
         <div class="text">考试状态</div>
         <el-select v-model="stateVal" class="filter-item">
           <el-option
-            v-for="(item,index) in $t('stateVal')"
-            :key="index"
-            :label="item"
-            :value="index"
+            v-for="(item) in $t('stateVal')"
+            :key="item.key"
+            :label="item.name"
+            :value="item.key"
           />
         </el-select>
       </div>
@@ -63,10 +64,10 @@
         <div class="text">课程阶段</div>
         <el-select v-model="stageVal" class="filter-item">
           <el-option
-            v-for="(item,index) in $t('qualificationsVal') "
-            :key="index"
-            :label="item"
-            :value="index"
+            v-for="(item) in $t('qualificationsVal') "
+            :key="item.key"
+            :label="item.name"
+            :value="item.key"
           />
         </el-select>
       </div>
@@ -74,10 +75,10 @@
         <div class="text">考试状态</div>
         <el-select v-model="stateVal" class="filter-item">
           <el-option
-            v-for="(item,index) in $t('stateVal')"
-            :key="index"
-            :label="item"
-            :value="index"
+            v-for="(item) in $t('stateVal')"
+            :key="item.key"
+            :label="item.name"
+            :value="item.key"
           />
         </el-select>
       </div>
@@ -107,10 +108,10 @@
         <div class="text">考试状态</div>
         <el-select v-model="stateVal" class="filter-item">
           <el-option
-            v-for="(item,index) in $t('stateVal')"
-            :key="index"
-            :label="item"
-            :value="index"
+            v-for="(item) in $t('stateVal')"
+            :key="item.key"
+            :label="item.name"
+            :value="item.key"
           />
         </el-select>
       </div>
@@ -126,7 +127,7 @@
         ></el-date-picker>
       </div>
     </div>
-    <div class="screen" v-if="projectVal==20||projectVal==22">
+    <div class="screen" v-if="projectVal==9||projectVal==8">
       <el-input placeholder="查询提示：专业代码/课程代码/课程名称" v-model="screenVal" class="screen-item">
         <el-button slot="append">搜索</el-button>
       </el-input>
@@ -134,10 +135,10 @@
         <div class="text">学位类型</div>
         <el-select v-model="degreeTypeVale" class="filter-item">
           <el-option
-            v-for="(item,index) in $t('degreeType')"
-            :key="index"
-            :label="item"
-            :value="index"
+            v-for="(item) in $t('degreeType')"
+            :key="item.key"
+            :label="item.name"
+            :value="item.key"
           />
         </el-select>
       </div>
@@ -145,10 +146,10 @@
         <div class="text">考试状态</div>
         <el-select v-model="stateVal" class="filter-item">
           <el-option
-            v-for="(item,index) in $t('stateVal')"
-            :key="index"
-            :label="item"
-            :value="index"
+            v-for="(item) in $t('stateVal')"
+            :key="item.key"
+            :label="item.name"
+            :value="item.key"
           />
         </el-select>
       </div>
@@ -164,7 +165,7 @@
         ></el-date-picker>
       </div>
     </div>
-    <div class="screen" v-if="projectVal==21">
+    <div class="screen" v-if="projectVal==10">
       <el-input placeholder="查询提示：专业代码/课程代码/课程名称" v-model="screenVal" class="screen-item">
         <el-button slot="append">搜索</el-button>
       </el-input>
@@ -183,10 +184,10 @@
         <div class="text">考试状态</div>
         <el-select v-model="stateVal" class="filter-item">
           <el-option
-            v-for="(item,index) in $t('stateVal')"
-            :key="index"
-            :label="item"
-            :value="index"
+            v-for="(item) in $t('stateVal')"
+            :key="item.key"
+            :label="item.name"
+            :value="item.key"
           />
         </el-select>
       </div>
@@ -210,10 +211,10 @@
         <div class="text">考试种类</div>
         <el-select v-model="EngTypeVal" class="filter-item">
           <el-option
-            v-for="(item,index)  in $t('EngType')"
-            :key="index"
-            :label="item"
-            :value="index"
+            v-for="(item)  in $t('EngType')"
+            :key="item.key"
+            :label="item.name"
+            :value="item.key"
           />
         </el-select>
       </div>
@@ -221,10 +222,10 @@
         <div class="text">考试状态</div>
         <el-select v-model="stateVal" class="filter-item">
           <el-option
-            v-for="(item,index) in $t('stateVal')"
-            :key="index"
-            :label="item"
-            :value="index"
+            v-for="(item) in $t('stateVal')"
+            :key="item.key"
+            :label="item.name"
+            :value="item.key"
           />
         </el-select>
       </div>
@@ -248,10 +249,10 @@
         <div class="text">考试级别</div>
         <el-select v-model="EngLevelVal" class="filter-item">
           <el-option
-            v-for="(item,index)  in $t('EngLevel')"
-            :key="index"
-            :label="item"
-            :value="index"
+            v-for="(item)  in $t('EngLevel')"
+            :key="item.key"
+            :label="item.name"
+            :value="item.key"
           />
         </el-select>
       </div>
@@ -259,10 +260,10 @@
         <div class="text">考试状态</div>
         <el-select v-model="stateVal" class="filter-item">
           <el-option
-            v-for="(item,index) in $t('stateVal')"
-            :key="index"
-            :label="item"
-            :value="index"
+            v-for="(item) in $t('stateVal')"
+            :key="item.key"
+            :label="item.name"
+            :value="item.key"
           />
         </el-select>
       </div>
@@ -278,7 +279,7 @@
         ></el-date-picker>
       </div>
     </div>
-    <div v-if="$t('schooleVal['+schoolVal+'].name')=='教师学院'" class="screen">
+    <div v-if="schoolList[schoolVal].name=='教师学院'" class="screen">
       <el-input placeholder="查询提示：专业代码/课程代码/课程名称" v-model="screenVal" class="screen-item">
         <el-button slot="append">搜索</el-button>
       </el-input>
@@ -286,10 +287,10 @@
         <div class="text">类别</div>
         <el-select v-model="teacherExamTypeVal" class="filter-item">
           <el-option
-            v-for="(item,index)  in $t('teacherExamType')"
-            :key="index"
-            :label="item"
-            :value="index"
+            v-for="(item)  in $t('teacherExamType')"
+            :key="item.key"
+            :label="item.name"
+            :value="item.key"
           />
         </el-select>
       </div>
@@ -297,10 +298,10 @@
         <div class="text">考试状态</div>
         <el-select v-model="stateVal" class="filter-item">
           <el-option
-            v-for="(item,index) in $t('stateVal')"
-            :key="index"
-            :label="item"
-            :value="index"
+            v-for="(item) in $t('stateVal')"
+            :key="item.key"
+            :label="item.name"
+            :value="item.key"
           />
         </el-select>
       </div>
@@ -317,7 +318,7 @@
       </div>
     </div>
 
-    <div class="screen" v-if="$t('schooleVal['+schoolVal+'].name')=='建筑工程学院'">
+    <div class="screen" v-if="schoolKind==16">
       <el-input placeholder="查询提示：专业代码/课程代码/课程名称" v-model="screenVal" class="screen-item">
         <el-button slot="append">搜索</el-button>
       </el-input>
@@ -325,10 +326,10 @@
         <div class="text">专业</div>
         <el-select v-model="engineerMajorVal" class="filter-item">
           <el-option
-            v-for="(item,index)  in $t('engineerMajor')"
-            :key="index"
-            :label="item"
-            :value="index"
+            v-for="(item)  in $t('engineerMajor')"
+            :key="item.key"
+            :label="item.name"
+            :value="item.key"
           />
         </el-select>
       </div>
@@ -336,10 +337,10 @@
         <div class="text">考试状态</div>
         <el-select v-model="stateVal" class="filter-item">
           <el-option
-            v-for="(item,index) in $t('stateVal')"
-            :key="index"
-            :label="item"
-            :value="index"
+            v-for="(item) in $t('stateVal')"
+            :key="item.key"
+            :label="item.name"
+            :value="item.key"
           />
         </el-select>
       </div>
@@ -355,7 +356,7 @@
         ></el-date-picker>
       </div>
     </div>
-    <div class="screen" v-if="$t('schooleVal['+schoolVal+'].name')=='医药卫生学院'">
+    <div class="screen" v-if="schoolKind==13">
       <el-input placeholder="查询提示：专业代码/课程代码/课程名称" v-model="screenVal" class="screen-item">
         <el-button slot="append">搜索</el-button>
       </el-input>
@@ -363,10 +364,10 @@
         <div class="text">鉴定级别</div>
         <el-select v-model="appraisalLevelVal" class="filter-item">
           <el-option
-            v-for="(item,index)  in $t('appraisalLevel')"
-            :key="index"
-            :label="item"
-            :value="index"
+            v-for="(item)  in $t('appraisalLevel')"
+            :key="item.key"
+            :label="item.name"
+            :value="item.key"
           />
         </el-select>
       </div>
@@ -374,10 +375,10 @@
         <div class="text">鉴定形式</div>
         <el-select v-model="appraisalFormVal" class="filter-item">
           <el-option
-            v-for="(item,index)  in $t('appraisalForm')"
-            :key="index"
-            :label="item"
-            :value="index"
+            v-for="(item)  in $t('appraisalForm')"
+            :key="item.key"
+            :label="item.name"
+            :value="item.key"
           />
         </el-select>
       </div>
@@ -385,10 +386,10 @@
         <div class="text">考试状态</div>
         <el-select v-model="stateVal" class="filter-item">
           <el-option
-            v-for="(item,index) in $t('stateVal')"
-            :key="index"
-            :label="item"
-            :value="index"
+            v-for="(item) in $t('stateVal')"
+            :key="item.key"
+            :label="item.name"
+            :value="item.key"
           />
         </el-select>
       </div>
@@ -404,7 +405,7 @@
         ></el-date-picker>
       </div>
     </div>
-    <div class="screen" v-if="$t('schooleVal['+schoolVal+'].name')=='职业培训学院'">
+    <div class="screen" v-if="schoolKind==18">
       <el-input placeholder="查询提示：专业代码/课程代码/课程名称" v-model="screenVal" class="screen-item">
         <el-button slot="append">搜索</el-button>
       </el-input>
@@ -412,10 +413,10 @@
         <div class="text">鉴定级别</div>
         <el-select v-model="appraisalLevelVal" class="filter-item">
           <el-option
-            v-for="(item,index)  in $t('appraisalLevel')"
-            :key="index"
-            :label="item"
-            :value="index"
+            v-for="(item)  in $t('appraisalLevel')"
+            :key="item.key"
+            :label="item.name"
+            :value="item.key"
           />
         </el-select>
       </div>
@@ -423,10 +424,10 @@
         <div class="text">鉴定形式</div>
         <el-select v-model="appraisalFormVal" class="filter-item">
           <el-option
-            v-for="(item,index)  in $t('appraisalForm')"
-            :key="index"
-            :label="item"
-            :value="index"
+            v-for="(item)  in $t('appraisalForm')"
+            :key="item.key"
+            :label="item.name"
+            :value="item.key"
           />
         </el-select>
       </div>
@@ -434,10 +435,10 @@
         <div class="text">考试状态</div>
         <el-select v-model="stateVal" class="filter-item">
           <el-option
-            v-for="(item,index) in $t('stateVal')"
-            :key="index"
-            :label="item"
-            :value="index"
+            v-for="(item) in $t('stateVal')"
+            :key="item.key"
+            :label="item.name"
+            :value="item.key"
           />
         </el-select>
       </div>
@@ -458,34 +459,40 @@
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import Bus from "../../utils/bus.js";
+import { Active } from "../../utils/school";
+let active = new Active();
 @Component({
   name: "screen",
   components: {}
 })
 export default class extends Vue {
+  schoolList: any = "";
+  schoolKind: number | null = null;
   schoolVal: number = 0;
   projectVal: number = 1;
   screenData: any = {};
   screenVal: string = ""; //搜索
   founderVal: number = 0; //创建人
   provinceVal: number = 15; //省份
-  qualificationsVal: number = 0; //学历
+  qualificationsVal: string = ""; //学历
   categoryVal: number = 0; //学科门类
   stageVal: number = 0; //课程阶段
-  stateVal: number = 0; //考试状态
-  degreeTypeVale: number = 0; //学位类型
-  EngTypeVal: number = 0; //英语四六级考试种类
-  EngLevelVal: number = 0; //学位英语考试等级
-  teacherExamTypeVal: number = 0; //教师学院类别
-  engineerMajorVal: number = 0; //造价工程师专业
-  appraisalLevelVal: number = 0; //医药卫生学院鉴定级别
-  appraisalFormVal: number = 0; //医药卫生学院鉴定形式
+  stateVal: string = ""; //考试状态
+  degreeTypeVale: string = ""; //学位类型
+  EngTypeVal: string = ""; //英语四六级考试种类
+  EngLevelVal: string = ""; //学位英语考试等级
+  teacherExamTypeVal: string = ""; //教师学院类别
+  engineerMajorVal: string = ""; //造价工程师专业
+  appraisalLevelVal: string = ""; //医药卫生学院鉴定级别
+  appraisalFormVal: string = ""; //医药卫生学院鉴定形式
   timeVal: string = ""; //时间
-  created() {
+  async created() {
+    let data = await active.getAllKindList();
+    this.schoolList = data.data;
     Bus.$on("projectVal", (e: any) => {
+      this.schoolKind = e.schoolKind;
       this.projectVal = e.projectVal;
       this.schoolVal = e.schoolVal;
-      console.log(`传来的数据是：${e}`);
     });
   }
   //创建开考计划
@@ -589,8 +596,6 @@ export default class extends Vue {
           break;
       }
     }
-
-    console.log(this.screenData);
     this.$notify({
       title: "成功",
       message: "创建成功",

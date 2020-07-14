@@ -35,7 +35,6 @@
           <el-form-item label="考试日期">
             <el-date-picker v-model="time" type="date" placeholder="选择日期" />
           </el-form-item>
-
           <el-form-item label="具体时段">
             <div class="time-select">
               <el-time-select
@@ -73,10 +72,10 @@
           <el-form-item label="课程阶段">
             <el-select v-model="stageVal" class="filter-item" placeholder="Please select">
               <el-option
-                v-for="(item,index) in $t('qualificationsVal') "
-                :key="index"
-                :label="item"
-                :value="index"
+                v-for="(item) in $t('qualificationsVal') "
+                :key="item.key"
+                :label="item.name"
+                :value="item.key"
               />
             </el-select>
           </el-form-item>
@@ -88,7 +87,6 @@
           <el-form-item label="考试日期">
             <el-date-picker v-model="time" type="date" placeholder="选择日期" />
           </el-form-item>
-
           <el-form-item label="具体时段">
             <div class="time-select">
               <el-time-select
@@ -136,7 +134,6 @@
           <el-form-item label="考试日期">
             <el-date-picker v-model="time" type="date" placeholder="选择日期" />
           </el-form-item>
-
           <el-form-item label="具体时段">
             <div class="time-select">
               <el-time-select
@@ -158,7 +155,7 @@
         </div>
       </el-dialog>
     </div>
-    <div v-if="projectVal==20">
+    <div v-if="projectVal==9">
       <el-dialog :title="addPlanType?'创建开考计划':'编辑开考计划'" :visible.sync="dialog">
         <el-form label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
           <el-form-item label="门类">
@@ -174,10 +171,10 @@
           <el-form-item label="学位类型">
             <el-select v-model="degreeTypeVale" class="filter-item" placeholder="Please select">
               <el-option
-                v-for="(item,index) in $t('degreeType')"
-                :key="index"
-                :label="item"
-                :value="index"
+                v-for="(item) in $t('degreeType')"
+                :key="item.key"
+                :label="item.name"
+                :value="item.key"
               />
             </el-select>
           </el-form-item>
@@ -194,7 +191,6 @@
           <el-form-item label="考试日期">
             <el-date-picker v-model="time" type="date" placeholder="选择日期" />
           </el-form-item>
-
           <el-form-item label="具体时段">
             <div class="time-select">
               <el-time-select
@@ -216,7 +212,7 @@
         </div>
       </el-dialog>
     </div>
-    <div v-if="projectVal==21">
+    <div v-if="projectVal==10">
       <el-dialog :title="addPlanType?'创建开考计划':'编辑开考计划'" :visible.sync="dialog">
         <el-form label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
           <el-form-item label="一级学科">
@@ -225,10 +221,10 @@
           <el-form-item label="二级学科">
             <el-select v-model="twoSubject" class="filter-item" placeholder="Please select">
               <el-option
-                v-for="(item,index) in $t('degreeType')"
-                :key="index"
-                :label="item"
-                :value="index"
+                v-for="(item) in $t('degreeType')"
+                :key="item.key"
+                :label="item.name"
+                :value="item.key"
               />
             </el-select>
           </el-form-item>
@@ -245,7 +241,6 @@
           <el-form-item label="考试日期">
             <el-date-picker v-model="time" type="date" placeholder="选择日期" />
           </el-form-item>
-
           <el-form-item label="具体时段">
             <div class="time-select">
               <el-time-select
@@ -276,17 +271,16 @@
           <el-form-item label="考试种类">
             <el-select v-model="EngTypeVal" class="filter-item" placeholder="Please select">
               <el-option
-                v-for="(item,index)  in $t('EngType')"
-                :key="index"
-                :label="item"
-                :value="index"
+                v-for="(item)  in $t('EngType')"
+                :key="item.key"
+                :label="item.name"
+                :value="item.key"
               />
             </el-select>
           </el-form-item>
           <el-form-item label="考试日期">
             <el-date-picker v-model="time" type="date" placeholder="选择日期" />
           </el-form-item>
-
           <el-form-item label="具体时段">
             <div class="time-select">
               <el-time-select
@@ -314,17 +308,16 @@
           <el-form-item label="考试级别">
             <el-select v-model="EngLevelVal" class="filter-item" placeholder="Please select">
               <el-option
-                v-for="(item,index)  in $t('EngLevel')"
-                :key="index"
-                :label="item"
-                :value="index"
+                v-for="(item)  in $t('EngLevel')"
+                :key="item.key"
+                :label="item.name"
+                :value="item.key"
               />
             </el-select>
           </el-form-item>
           <el-form-item label="考试日期">
             <el-date-picker v-model="time" type="date" placeholder="选择日期" />
           </el-form-item>
-
           <el-form-item label="具体时段">
             <div class="time-select">
               <el-time-select
@@ -346,7 +339,7 @@
         </div>
       </el-dialog>
     </div>
-    <div v-if="$t('schooleVal['+schoolVal+'].name')=='教师学院'">
+    <div v-if="schoolList[schoolVal].name=='教师学院'">
       <el-dialog :title="addPlanType?'创建开考计划':'编辑开考计划'" :visible.sync="dialog">
         <el-form label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
           <el-form-item label="科目代码">
@@ -355,27 +348,26 @@
           <el-form-item label="考试科目">
             <el-select v-model="examSubject" class="filter-item" placeholder="Please select">
               <el-option
-                v-for="(item,index)  in $t('EngLevel')"
-                :key="index"
-                :label="item"
-                :value="index"
+                v-for="(item)  in $t('EngLevel')"
+                :key="item.key"
+                :label="item.name"
+                :value="item.key"
               />
             </el-select>
           </el-form-item>
           <el-form-item label="考试种类">
             <el-select v-model="teacherExamTypeVal" class="filter-item" placeholder="Please select">
               <el-option
-                v-for="(item,index)  in $t('teacherExamType')"
-                :key="index"
-                :label="item"
-                :value="index"
+                v-for="(item)  in $t('teacherExamType')"
+                :key="item.key"
+                :label="item.name"
+                :value="item.key"
               />
             </el-select>
           </el-form-item>
           <el-form-item label="考试日期">
             <el-date-picker v-model="time" type="date" placeholder="选择日期" />
           </el-form-item>
-
           <el-form-item label="具体时段">
             <div class="time-select">
               <el-time-select
@@ -397,37 +389,35 @@
         </div>
       </el-dialog>
     </div>
-    <div v-if="$t('schooleVal['+schoolVal+'].name')=='建筑工程学院'">
+    <div v-if="schoolKind==16">
       <el-dialog :title="addPlanType?'创建开考计划':'编辑开考计划'" :visible.sync="dialog">
         <el-form label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
           <el-form-item label="专业">
             <el-select v-model="major" class="filter-item" placeholder="Please select">
               <el-option
-                v-for="(item,index)  in $t('EngLevel')"
-                :key="index"
-                :label="item"
-                :value="index"
+                v-for="(item)  in $t('EngLevel')"
+                :key="item.key"
+                :label="item.name"
+                :value="item.key"
               />
             </el-select>
           </el-form-item>
           <el-form-item label="考试科目">
             <el-input v-model="examSubject" />
           </el-form-item>
-
           <el-form-item label="考试种类">
             <el-select v-model="teacherExamTypeVal" class="filter-item" placeholder="Please select">
               <el-option
-                v-for="(item,index)  in $t('teacherExamType')"
-                :key="index"
-                :label="item"
-                :value="index"
+                v-for="(item)  in $t('teacherExamType')"
+                :key="item.key"
+                :label="item.name"
+                :value="item.key"
               />
             </el-select>
           </el-form-item>
           <el-form-item label="考试日期">
             <el-date-picker v-model="time" type="date" placeholder="选择日期" />
           </el-form-item>
-
           <el-form-item label="具体时段">
             <div class="time-select">
               <el-time-select
@@ -449,36 +439,36 @@
         </div>
       </el-dialog>
     </div>
-    <div v-if="$t('schooleVal['+schoolVal+'].name')=='医药卫生学院'">
+    <div v-if="schoolKind==13">
       <el-dialog :title="addPlanType?'创建开考计划':'编辑开考计划'" :visible.sync="dialog">
         <el-form label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
           <el-form-item label="鉴定级别">
             <el-select v-model="appraisalLevelVal" class="filter-item" placeholder="Please select">
               <el-option
-                v-for="(item,index)  in $t('appraisalLevel')"
-                :key="index"
-                :label="item"
-                :value="index"
+                v-for="(item)  in $t('appraisalLevel')"
+                :key="item.key"
+                :label="item.name"
+                :value="item.key"
               />
             </el-select>
           </el-form-item>
           <el-form-item label="鉴定形式">
             <el-select v-model="appraisalFormVal" class="filter-item" placeholder="Please select">
               <el-option
-                v-for="(item,index)  in $t('appraisalForm')"
-                :key="index"
-                :label="item"
-                :value="index"
+                v-for="(item)  in $t('appraisalForm')"
+                :key="item.key"
+                :label="item.name"
+                :value="item.key"
               />
             </el-select>
           </el-form-item>
           <el-form-item label="考试科目">
             <el-select v-model="examSubject" class="filter-item" placeholder="Please select">
               <el-option
-                v-for="(item,index)  in $t('EngLevel')"
-                :key="index"
-                :label="item"
-                :value="index"
+                v-for="(item)  in $t('EngLevel')"
+                :key="item.key"
+                :label="item.name"
+                :value="item.key"
               />
             </el-select>
           </el-form-item>
@@ -488,7 +478,6 @@
           <el-form-item label="考试日期">
             <el-date-picker v-model="time" type="date" placeholder="选择日期" />
           </el-form-item>
-
           <el-form-item label="具体时段">
             <div class="time-select">
               <el-time-select
@@ -510,26 +499,26 @@
         </div>
       </el-dialog>
     </div>
-    <div v-if="$t('schooleVal['+schoolVal+'].name')=='职业培训学院'">
+    <div v-if="schoolKind==18">
       <el-dialog :title="addPlanType?'创建开考计划':'编辑开考计划'" :visible.sync="dialog">
         <el-form label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
           <el-form-item label="考试级别">
             <el-select v-model="appraisalLevelVal" class="filter-item" placeholder="Please select">
               <el-option
-                v-for="(item,index)  in $t('appraisalLevel')"
-                :key="index"
-                :label="item"
-                :value="index"
+                v-for="(item)  in $t('appraisalLevel')"
+                :key="item.key"
+                :label="item.name"
+                :value="item.key"
               />
             </el-select>
           </el-form-item>
           <el-form-item label="考试方式">
             <el-select v-model="examTypeVal" class="filter-item" placeholder="Please select">
               <el-option
-                v-for="(item,index)  in $t('examType')"
-                :key="index"
-                :label="item"
-                :value="index"
+                v-for="(item)  in $t('examType')"
+                :key="item.key"
+                :label="item.name"
+                :value="item.key"
               />
             </el-select>
           </el-form-item>
@@ -545,7 +534,6 @@
           <el-form-item label="考试日期">
             <el-date-picker v-model="time" type="date" placeholder="选择日期" />
           </el-form-item>
-
           <el-form-item label="具体时段">
             <div class="time-select">
               <el-time-select
@@ -572,14 +560,16 @@
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import Bus from "../../utils/bus.js";
+import { Active } from "../../utils/school";
+let active = new Active();
 @Component({
   name: "screen",
   components: {}
 })
 export default class extends Vue {
+  schoolList: any = "";
   dialog: boolean | null = null;
   @Prop() dialogFormVisible!: boolean; //所属页面
-
   @Watch("dialogFormVisible")
   change() {
     this.dialog = this.dialogFormVisible;
@@ -592,6 +582,7 @@ export default class extends Vue {
   }
   @Prop() addPlanType!: boolean; //所属页面
   tempArticleData: any = {};
+  schoolKind: number | null = null;
   schoolVal: number = 0;
   projectVal: number = 1;
   province: number = 15; //所属省份
@@ -605,33 +596,25 @@ export default class extends Vue {
   categoryVal: number = 0; //学科门类
   categoryCode: number = 0; //门类代码
   examSubject: number = 0; //考试科目
-  stageVal: number = 0; // 课程阶段
-  degreeTypeVale: number = 0; // 学位类型
+  stageVal: string = ""; // 课程阶段
+  degreeTypeVale: string = ""; // 学位类型
   oneSubject: string = ""; // 一级学科
-  // 二级学科
-  twoSubject: number = 0;
-  // 考试课程
-  examCourseVal: number = 0;
-  // 考试代码
-  EngTypeCodeVal: string = "";
-  // 考试种类
-  EngTypeVal: number = 0;
-  // 考试级别
-  EngLevelVal: number = 0;
-  // 科目代码
-  SubjectCode: string = "";
-  // 考试种类
-  teacherExamTypeVal: number = 0;
-  // 鉴定级别
-  appraisalLevelVal: number = 0;
-  // 鉴定形式
-  appraisalFormVal: number = 0;
-  // 考试批次
-  examBatch: string = "";
-  // 考试方式
-  examTypeVal: string = "";
-  created() {
+  twoSubject: number = 0; // 二级学科
+  examCourseVal: number = 0; // 考试课程
+  EngTypeCodeVal: string = ""; // 考试代码
+  EngTypeVal: string = ""; // 考试种类
+  EngLevelVal: string = ""; // 考试级别
+  SubjectCode: string = ""; // 科目代码
+  teacherExamTypeVal: string = ""; // 考试种类
+  appraisalLevelVal: string = ""; // 鉴定级别
+  appraisalFormVal: string = ""; // 鉴定形式
+  examBatch: string = ""; // 考试批次
+  examTypeVal: string = ""; // 考试方式
+  async created() {
+    let data = await active.getAllKindList();
+    this.schoolList = data.data;
     Bus.$on("projectVal", (e: any) => {
+      this.schoolKind = e.schoolKind;
       this.projectVal = e.projectVal;
       this.schoolVal = e.schoolVal;
       this.$emit("dialogChang", false);
@@ -649,9 +632,7 @@ export default class extends Vue {
         startTime: this.startTime,
         endTime: this.endTime
       };
-    } else if (
-      this.$t("schooleVal[" + this.schoolVal + "].name") == "建筑工程学院"
-    ) {
+    } else if (this.schoolKind == 16) {
       this.tempArticleData = {
         major: this.major,
         examSubject: this.examSubject,
@@ -659,9 +640,7 @@ export default class extends Vue {
         startTime: this.startTime,
         endTime: this.endTime
       };
-    } else if (
-      this.$t("schooleVal[" + this.schoolVal + "].name") == "医药卫生学院"
-    ) {
+    } else if (this.schoolKind == 13) {
       this.tempArticleData = {
         appraisalLevelVal: this.appraisalLevelVal,
         appraisalFormVal: this.appraisalFormVal,
@@ -671,9 +650,7 @@ export default class extends Vue {
         startTime: this.startTime,
         endTime: this.endTime
       };
-    } else if (
-      this.$t("schooleVal[" + this.schoolVal + "].name") == "职业培训学院"
-    ) {
+    } else if (this.schoolKind == 18) {
       this.tempArticleData = {
         appraisalLevelVal: this.appraisalLevelVal,
         examTypeVal: this.examTypeVal,
@@ -688,7 +665,7 @@ export default class extends Vue {
       switch (this.projectVal) {
         case 1:
           this.tempArticleData = {
-            project: this.project,
+            province: this.province,
             schoole: this.schoole,
             major: this.major,
             kcName: this.kcName,
@@ -700,7 +677,7 @@ export default class extends Vue {
           break;
         case 2:
           this.tempArticleData = {
-            project: this.project,
+            province: this.province,
             stageVal: this.stageVal,
             examSubject: this.examSubject,
             time: this.time,
@@ -760,8 +737,6 @@ export default class extends Vue {
           break;
       }
     }
-
-    console.log(this.tempArticleData);
     this.$notify({
       title: "成功",
       message: "创建成功",

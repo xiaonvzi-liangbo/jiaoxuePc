@@ -72,6 +72,8 @@ import Pagination from "@/components/Pagination/index.vue";
 import screen from "@/components/examinationPlan/classScreen.vue";
 import schooleChoose from "@/components/examinationPlan/schooleChoose.vue";
 import Bus from "../../../utils/bus.js";
+import { Active } from "../../../utils/school";
+let active = new Active();
 @Component({
   name: "ComplexTable",
   components: {
@@ -81,6 +83,7 @@ import Bus from "../../../utils/bus.js";
   }
 })
 export default class extends Vue {
+  schoolList: any = "";
   schoolVal: number = 0; //院校
   projectVal: number = 1; //项目
   majorVal: number = 0; //专业
@@ -129,26 +132,18 @@ export default class extends Vue {
 
   private dialogPageviewsVisible = false;
   private pageviewsData = [];
-
-  created() {
+  async created() {
+    let data = await active.getAllKindList();
+    this.schoolList = data.data;
     Bus.$on("projectVal", (e: any) => {
       this.projectVal = e.projectVal;
       this.schoolVal = e.schoolVal;
-      console.log(`传来的数据是：${e}`);
     });
     this.getList();
   }
   //创建开考计划按钮点击事件
   private handleCreate() {
-    let data: any = {
-      schoolVal: this.schoolVal,
-      projectVal: this.projectVal,
-      title: this.$t("schooleVal[" + this.schoolVal + "].name")
-    };
-    this.$router.push({
-      path: "/addClassPlan",
-      query: data
-    });
+    this.openPage(true);
   }
   //导出数据按钮点击事件
   private handleDownload() {
@@ -161,16 +156,7 @@ export default class extends Vue {
   }
   //编辑按钮点击事件
   private handleUpdate(row: any) {
-    let data: any = {
-      schoolVal: this.schoolVal,
-      projectVal: this.projectVal,
-      title: this.$t("schooleVal[" + this.schoolVal + "].name"),
-      addPlanType: false
-    };
-    this.$router.push({
-      path: "/addClassPlan",
-      query: data
-    });
+    this.openPage(false);
   }
   //删除按钮点击事件
   private handleDelete(row: any, index: number) {
@@ -181,6 +167,27 @@ export default class extends Vue {
       duration: 2000
     });
     this.list.splice(index, 1);
+  }
+  //打开编辑页面
+  openPage(addPlanType: boolean) {
+    let title = "";
+    for (let i in this.schoolList[this.schoolVal].types) {
+      let item = this.schoolList[this.schoolVal].types[i];
+      if (this.projectVal == item.kind) {
+        title = item.name;
+      }
+    }
+    let data: any = {
+      schoolKind: this.schoolList[this.schoolVal].kind,
+      schoolVal: this.schoolVal,
+      projectVal: this.projectVal,
+      title: title,
+      addPlanType: addPlanType
+    };
+    this.$router.push({
+      path: "/addClassPlan",
+      query: data
+    });
   }
   private async getList() {
     this.listLoading = true;

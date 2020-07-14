@@ -3,14 +3,19 @@ export class Active {
 
 
   // 获取活动详情
-  async getSchoolList(data: any) {
-    request({
-      url: `/wangxiao/kind/getKindListPage`,
+  async getAllKindList() {
+    let data: any = await request({
+      url: `/wangxiao/kind/getAllKindList`,
       method: 'get',
-      data
-
     })
-
-
+    if (data) {
+      if (data.code == 0) {
+        return data
+      } else {
+        throw Error(data.msg)
+      }
+    } else {
+      throw Error("获取数据失败")
+    }
   }
 }

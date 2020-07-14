@@ -1,4 +1,5 @@
 <template>
+  <!-- 开考开课院校选择 -->
   <div>
     <div class="choose">
       <div class="school">
@@ -6,11 +7,11 @@
           :class="schoolVal==index?'on':''"
           class="schoolItem"
           @click="chooseSchool(index)"
-          v-for="(item,index) in $t('schooleVal')"
+          v-for="(item,index) in schoolList"
           :key="index"
         >{{item.name}}</div>
       </div>
-      <div v-if="$t('schooleVal['+schoolVal+'].name')=='教师学院'" class="chooseMajor">
+      <div v-if="schoolList[schoolVal].name=='教师学院'" class="chooseMajor">
         <div class="chooseMajor-item">
           <div class="text">考试类型：</div>
           <div @click="examTypeChoose(0)" :class="examTypeVal==0?'examTypeText':'examTypeNo'">笔试</div>
@@ -22,10 +23,10 @@
           <div class="text">所属项目：</div>
           <el-select v-model="projectVal" class="filter-item" @change="projectchange()">
             <el-option
-              v-for="(item) in $t('schooleVal['+schoolVal+'].types')"
-              :key="item.Kind"
+              v-for="(item) in schoolList[schoolVal].types"
+              :key="item.kind"
               :label="item.name"
-              :value="item.Kind"
+              :value="item.kind"
             />
           </el-select>
         </div>
@@ -33,10 +34,10 @@
           <div class="text">学历层次：</div>
           <el-select v-model="qualificationsVal" class="filter-item">
             <el-option
-              v-for="(item,index) in $t('qualifications')"
-              :key="index"
-              :label="item"
-              :value="index"
+              v-for="(item) in $t('qualificationsVal') "
+              :key="item.key"
+              :label="item.name"
+              :value="item.key"
             />
           </el-select>
         </div>
@@ -49,7 +50,7 @@
             <el-option v-for="(item,index) in 3" :key="index" :label="item" :value="index" />
           </el-select>
         </div>
-        <div class="chooseMajor-item" v-if="projectVal==20||projectVal==22">
+        <div class="chooseMajor-item" v-if="projectVal==9||projectVal==8">
           <div class="text">考试类型：</div>
           <div class="examTypeText">初试</div>
         </div>
@@ -69,28 +70,30 @@ let active = new Active();
 })
 export default class extends Vue {
   schoolVal: number = 0; //院校
+  schoolList: any = "";
   projectVal: number = 1; //项目
   majorVal: number = 0; //专业
   examTypeVal: number = 0; //考试类型
   @Prop() from!: string; //所属页面
-  qualificationsVal: number = 0; // 学历层次：
+  qualificationsVal: number | string = ""; // 学历层次：
   async created() {
     let data = await active.getAllKindList();
-    console.log(data, "++++++++++++++++++++++++++school");
+    this.schoolList = data.data;
     this.schoolVal = 0;
     this.projectVal = 1;
   }
   //院校选中
   chooseSchool(val: number) {
     this.schoolVal = val;
-    let data: any = this.$t("schooleVal[" + this.schoolVal + "].types[0]");
-    console.log(data.Kind);
+    let data: any = this.schoolList[this.schoolVal].types[0];
+
     if (data) {
-      this.projectVal = Number(data.Kind);
+      this.projectVal = Number(data.kind);
     } else {
       this.projectVal = 0;
     }
     Bus.$emit("projectVal", {
+      schoolKind: this.schoolList[this.schoolVal].kind,
       projectVal: this.projectVal,
       schoolVal: this.schoolVal
     });
@@ -98,6 +101,7 @@ export default class extends Vue {
   //项目切换
   projectchange() {
     Bus.$emit("projectVal", {
+      schoolKind: this.schoolList[this.schoolVal].kind,
       projectVal: this.projectVal,
       schoolVal: this.schoolVal
     });

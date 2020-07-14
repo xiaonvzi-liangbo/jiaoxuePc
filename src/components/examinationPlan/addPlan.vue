@@ -582,7 +582,7 @@ export default class extends Vue {
   }
   @Prop() addPlanType!: boolean; //所属页面
   tempArticleData: any = {};
-  schoolKind: number | null = null;
+  schoolKind:  number = 4;
   schoolVal: number = 0;
   projectVal: number = 1;
   province: number = 15; //所属省份

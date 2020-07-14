@@ -126,7 +126,9 @@ export default class extends Vue {
     }
   }
 }
-
+.el-submenu__title i {
+  color: #fff !important;
+}
 .simple-mode {
   &.first-level {
     .submenu-title-noDropdown {

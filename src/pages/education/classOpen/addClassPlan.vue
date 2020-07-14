@@ -385,16 +385,23 @@
         label-width="100px"
         class="list-form"
       >
-        <el-form-item label="直播课程" prop="associatedPlan">
-          <div>{{live.associatedPlan}}</div>
-          <el-button type="primary">直播课程</el-button>
+        <el-form-item label="直播课程" prop="live">
+          <div>{{live.live}}</div>
+          <el-button @click="liveShow=true" type="primary">直播课程</el-button>
         </el-form-item>
       </el-form>
-      <el-button type="primary">保存</el-button>
+      <el-button class="save" type="primary">保存</el-button>
     </div>
     <el-dialog title="关联开考计划" :visible.sync="planShow">
+      <class-dialog :schoolKind="schoolKind" :schoolVal="schoolVal" :projectVal="projectVal"></class-dialog>
       <div slot="footer" class="dialog-footer">
-        <class-dialog :schoolKind="schoolKind" :schoolVal="schoolVal" :projectVal="projectVal"></class-dialog>
+        <el-button @click="dialogChang()">取消</el-button>
+        <el-button type="primary" @click="createData()">确定</el-button>
+      </div>
+    </el-dialog>
+    <el-dialog title="选择课程" :visible.sync="liveShow">
+      <class-live :schoolKind="schoolKind" :schoolVal="schoolVal" :projectVal="projectVal"></class-live>
+      <div slot="footer" class="dialog-footer">
         <el-button @click="dialogChang()">取消</el-button>
         <el-button type="primary" @click="createData()">确定</el-button>
       </div>
@@ -407,19 +414,22 @@ import Bus from "../../../utils/bus.js";
 import { log } from "util";
 import { Active } from "../../../utils/school";
 import classDialog from "@/components/examinationPlan/classDialog.vue";
+import classLive from "@/components/examinationPlan/classLiveShow.vue";
+
 let active = new Active();
 
 @Component({
   name: "screen",
-  components: { classDialog }
+  components: { classDialog, classLive }
 })
 export default class extends Vue {
   schoolList: any = "";
-  schoolKind: number | null = null;
+  schoolKind: number = 4;
   schoolVal: number = 0;
   projectVal: number = 1;
   addPlanType: boolean = false;
   planShow: boolean = false;
+  liveShow: boolean = false;
   title: any = "";
   //关联开课计划
   addPlanAssociatedData: any = {
@@ -444,7 +454,7 @@ export default class extends Vue {
     schoolYear: 0, //学年
     semester: 0 //学期
   };
-  live: any = { associatedPlan: "" };
+  live: any = { live: "" };
   //关联开课计划验证
   rules: any = {
     associatedPlan: [
@@ -492,7 +502,7 @@ export default class extends Vue {
     ]
   };
   rulesLive: any = {
-    associatedPlan: [
+    live: [
       {
         required: true,
         message: "关联直播课程",
@@ -515,6 +525,7 @@ export default class extends Vue {
   //关闭
   dialogChang() {
     this.planShow = false;
+    this.liveShow = false;
   }
   //关联开考计划
   createData() {
@@ -560,5 +571,14 @@ export default class extends Vue {
   .el-select {
     width: 100% !important;
   }
+}
+.el-dialog {
+  color: red;
+  border-bottom: 1px solid #dfe6ec !important;
+}
+.save {
+  margin: 10px 151px 0;
+  border-radius: 0;
+  width: 145px;
 }
 </style>

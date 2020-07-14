@@ -11,17 +11,23 @@
           :key="index"
         >{{item.name}}</div>
       </div>
-      <div v-if="schoolList[schoolVal].name=='教师学院'" class="chooseMajor">
+      <!--   <div v-if="schoolList[schoolVal].name=='教师学院'" class="chooseMajor">
         <div class="chooseMajor-item">
           <div class="text">考试类型：</div>
           <div @click="examTypeChoose(0)" :class="examTypeVal==0?'examTypeText':'examTypeNo'">笔试</div>
           <div @click="examTypeChoose(1)" :class="examTypeVal==1?'examTypeText':'examTypeNo'">面试</div>
         </div>
-      </div>
-      <div v-else class="chooseMajor">
+      </div>-->
+      <!-- <div v-else class="chooseMajor"> -->
+      <div class="chooseMajor">
         <div class="chooseMajor-item">
           <div class="text">所属项目：</div>
-          <el-select v-model="projectVal" class="filter-item" @change="projectchange()">
+          <el-select
+            v-if="schoolList[schoolVal].types!=[]"
+            v-model="projectVal"
+            class="filter-item"
+            @change="projectchange()"
+          >
             <el-option
               v-for="(item) in schoolList[schoolVal].types"
               :key="item.kind"
@@ -65,7 +71,6 @@ import { Active } from "../../utils/school";
 import { log } from "util";
 let active = new Active();
 @Component({
-  name: "screen",
   components: {}
 })
 export default class extends Vue {
@@ -78,9 +83,7 @@ export default class extends Vue {
   qualificationsVal: number | string = ""; // 学历层次：
   async created() {
     let data = await active.getAllKindList();
-    this.schoolList = data.data;
-    this.schoolVal = 0;
-    this.projectVal = 1;
+    this.schoolList = await data.data;
   }
   //院校选中
   chooseSchool(val: number) {

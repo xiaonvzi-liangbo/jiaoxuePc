@@ -156,7 +156,7 @@ let active = new Active();
 })
 export default class extends Vue {
   schoolList: any = "";
-  schoolKind: number | null = null;
+  schoolKind:  number = 4;
   schoolVal: number = 0;
   projectVal: number = 1;
   screenData: any = {};

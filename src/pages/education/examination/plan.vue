@@ -24,40 +24,7 @@
         @click="handleDownload"
       >导出数据</el-button>
     </div>
-    <el-table
-      :key="tableKey"
-      v-loading="listLoading"
-      :data="list"
-      border
-      fit
-      highlight-current-row
-      style="width: 100%;"
-    >
-      <el-table-column type="selection" width="40"></el-table-column>
-      <el-table-column
-        v-for="(item,index) in tabHeader"
-        :key="index"
-        :label="item.name"
-        align="center"
-        :width="item.val=='id'?'50':''"
-      >
-        <template slot-scope="{row}">
-          <span>{{ row[item.val]}}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column label="操作" align="center" width="230" class-name="fixed-width">
-        <template slot-scope="{row, $index}">
-          <el-button type="primary" size="mini" @click="handleUpdate(row)">编辑</el-button>
-          <el-button
-            v-if="row.status!=='deleted'"
-            size="mini"
-            type="danger"
-            @click="handleDelete(row, $index)"
-          >删除</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
+    <plan-table></plan-table>
     <add-plan
       :addPlanType="addPlanType"
       @dialogChang="dialogChang"
@@ -74,6 +41,8 @@ import { exportJson2Excel } from "@/utils/excel";
 import { formatJson } from "@/utils";
 import Pagination from "@/components/Pagination/index.vue";
 import screen from "@/components/examinationPlan/screen.vue";
+import planTable from "@/components/examinationPlan/table.vue";
+
 import schooleChoose from "@/components/examinationPlan/schooleChoose.vue";
 import addPlan from "@/components/examinationPlan/addPlan.vue";
 
@@ -85,7 +54,8 @@ import { log } from "util";
     Pagination,
     screen,
     schooleChoose,
-    addPlan
+    addPlan,
+    planTable
   }
 })
 export default class extends Vue {
@@ -93,21 +63,6 @@ export default class extends Vue {
   private downloadLoading = false;
   list: any[] = [];
   projectVal = "";
-  tabHeader = [
-    { name: "序号", val: "id" },
-    { name: "专业代码", val: "title" },
-    { name: "专业名称", val: "type" },
-    { name: "学历层次", val: "timestamp" },
-    { name: "所属省份", val: "title" },
-    { name: "主考院校", val: "status" },
-    { name: "课程名称", val: "status" },
-    { name: "课程代码", val: "timestamp" },
-    { name: "考试日期", val: "status" },
-    { name: "考试状态", val: "status" },
-    { name: "具体时间", val: "timestamp" },
-    { name: "创建时间", val: "timestamp" },
-    { name: "创建人", val: "status" }
-  ];
 
   private tableKey = 0;
   private listLoading = true;
@@ -160,9 +115,7 @@ export default class extends Vue {
     });
     this.list.splice(index, 1);
   }
-  private async getList() {
-
-  }
+  private async getList() {}
 }
 </script>
 <style lang="scss" scoped>

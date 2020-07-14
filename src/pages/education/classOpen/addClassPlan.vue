@@ -415,7 +415,6 @@ import { log } from "util";
 import { Active } from "../../../utils/school";
 import classDialog from "@/components/examinationPlan/classDialog.vue";
 import classLive from "@/components/examinationPlan/classLiveShow.vue";
-
 let active = new Active();
 
 @Component({

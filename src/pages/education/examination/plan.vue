@@ -24,7 +24,7 @@
         @click="handleDownload"
       >导出数据</el-button>
     </div>
-    <plan-table></plan-table>
+    <plan-table @handleUpdate="handleUpdate"></plan-table>
     <add-plan
       :addPlanType="addPlanType"
       @dialogChang="dialogChang"
@@ -39,7 +39,6 @@ import { cloneDeep } from "lodash";
 import { IArticleData } from "@/api/types";
 import { exportJson2Excel } from "@/utils/excel";
 import { formatJson } from "@/utils";
-import Pagination from "@/components/Pagination/index.vue";
 import screen from "@/components/examinationPlan/screen.vue";
 import planTable from "@/components/examinationPlan/table.vue";
 
@@ -51,7 +50,6 @@ import { log } from "util";
 @Component({
   name: "ComplexTable",
   components: {
-    Pagination,
     screen,
     schooleChoose,
     addPlan,
@@ -128,9 +126,5 @@ export default class extends Vue {
   display: flex;
   justify-content: flex-end;
   margin: 10px 0 20px;
-}
-
-.pagination-container {
-  float: right;
 }
 </style>

@@ -17,41 +17,7 @@
         @click="handleDownload"
       >导出数据</el-button>
     </div>
-    <el-table
-      :key="tableKey"
-      v-loading="listLoading"
-      :data="list"
-      border
-      fit
-      highlight-current-row
-      style="width: 100%;"
-    >
-      <el-table-column type="selection" width="40"></el-table-column>
-      <el-table-column
-        v-for="(item,index) in tabHeader"
-        :key="index"
-        :label="item.name"
-        align="center"
-        :width="item.val=='id'?'50':''"
-      >
-        <template slot-scope="{row}">
-          <span>{{ row[item.val] }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column label="操作" align="center" width="230" class-name="fixed-width">
-        <template slot-scope="{row, $index}">
-          <el-button type="primary" size="mini" @click="handleUpdate(row)">编辑</el-button>
-          <el-button
-            v-if="row.status!=='deleted'"
-            size="mini"
-            type="danger"
-            @click="handleDelete(row, $index)"
-          >删除</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
-
+    <class-table @handleUpdate="handleUpdate"></class-table>
     <pagination
       v-show="total>0"
       :total="total"
@@ -71,6 +37,7 @@ import { formatJson } from "@/utils";
 import Pagination from "@/components/Pagination/index.vue";
 import screen from "@/components/examinationPlan/classScreen.vue";
 import schooleChoose from "@/components/examinationPlan/schooleChoose.vue";
+import classTable from "@/components/examinationPlan/classTable.vue";
 import Bus from "../../../utils/bus.js";
 import { Active } from "../../../utils/school";
 let active = new Active();
@@ -79,7 +46,8 @@ let active = new Active();
   components: {
     Pagination,
     schooleChoose,
-    screen
+    screen,
+    classTable
   }
 })
 export default class extends Vue {

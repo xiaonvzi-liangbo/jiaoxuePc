@@ -57,12 +57,12 @@ class User extends VuexModule implements IUserState {
   }
 
   @Action
-  public async Login(userInfo: { username: string, password: string}) {
+  public async Login(userInfo: { username: string, password: string }) {
     let { username, password } = userInfo
     username = username.trim()
-    const { data } = await login({ username, password })
-    setToken(data.accessToken)
-    this.SET_TOKEN(data.accessToken)
+    // const { data } = await login({ username, password })
+    setToken("data.accessToken")
+    this.SET_TOKEN("data.accessToken")
   }
 
   @Action
@@ -74,23 +74,24 @@ class User extends VuexModule implements IUserState {
 
   @Action
   public async GetUserInfo() {
-    if (this.token === '') {
-      throw Error('GetUserInfo: token is undefined!')
-    }
-    const { data } = await getUserInfo({ /* Your params here */ })
-    if (!data) {
-      throw Error('Verification failed, please Login again.')
-    }
-    const { roles, name, avatar, introduction, email } = data.user
+    // if (this.token === '') {
+    //   throw Error('GetUserInfo: token is undefined!')
+    // }
+    // const { data } = await getUserInfo({ /* Your params here */ })
+    // if (!data) {
+    //   throw Error('Verification failed, please Login again.')
+    // }
+    // const { roles, name, avatar, introduction } = data.user
+
     // roles must be a non-empty array
-    if (!roles || roles.length <= 0) {
-      throw Error('GetUserInfo: roles must be a non-null array!')
-    }
-    this.SET_ROLES(roles)
-    this.SET_NAME(name)
-    this.SET_AVATAR(avatar)
-    this.SET_INTRODUCTION(introduction)
-    this.SET_EMAIL(email)
+    /*     if (!roles || roles.length <= 0) {
+          throw Error('GetUserInfo: roles must be a non-null array!')
+        }*/
+    this.SET_ROLES(["admin"])
+    /*     this.SET_NAME(name)
+        this.SET_AVATAR(avatar)
+        this.SET_INTRODUCTION(introduction)
+        this.SET_EMAIL(email) */
   }
 
   @Action

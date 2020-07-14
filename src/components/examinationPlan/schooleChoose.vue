@@ -61,6 +61,7 @@
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import Bus from "../../utils/bus.js";
 import { Active } from "../../utils/school";
+import { log } from "util";
 let active = new Active();
 @Component({
   name: "screen",
@@ -73,8 +74,9 @@ export default class extends Vue {
   examTypeVal: number = 0; //考试类型
   @Prop() from!: string; //所属页面
   qualificationsVal: number = 0; // 学历层次：
-  created() {
-    active.getSchoolList({ pageNum: 0, pageSize: 10 });
+  async created() {
+    let data = await active.getAllKindList();
+    console.log(data, "++++++++++++++++++++++++++school");
     this.schoolVal = 0;
     this.projectVal = 1;
   }

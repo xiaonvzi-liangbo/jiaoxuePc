@@ -81,7 +81,39 @@ export const constantRoutes: RouteConfig[] = [
       }
     ]
   },
-
+  {
+    path: '/configuration',
+    component: Layout,
+    redirect: '/province',
+    meta: {
+      title: 'configuration',
+      icon: 'lock',
+      roles: ['admin', 'editor'], // you can set roles in root nav
+      alwaysShow: true // will always show the root menu
+    },
+    children: [
+      {
+        path: 'college',
+        component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/configuration/college.vue'),
+        name: 'Dashboard',
+        meta: {
+          title: 'college',
+          icon: 'dashboard',
+          affix: true
+        }
+      },
+      {
+        path: 'province',
+        component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/configuration/province.vue'),
+        name: 'Dashboard',
+        meta: {
+          title: 'province',
+          icon: 'dashboard',
+          affix: true
+        }
+      },
+    ]
+  },
 
 ]
 export const asyncRoutes: RouteConfig[] = [

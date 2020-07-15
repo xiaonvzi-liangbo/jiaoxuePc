@@ -39,7 +39,7 @@
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :current-page="currentPage4"
+      :current-page="currentPage"
       :page-sizes="[100, 200, 300, 400]"
       :page-size="100"
       layout="total, sizes, prev, pager, next, jumper"
@@ -59,6 +59,8 @@ let active = new Active();
   components: {}
 })
 export default class extends Vue {
+  tableKey: number = 0;
+  currentPage: number = 1;
   schoolKind: number = 4;
   schoolVal: number = 0;
   projectVal: number = 1;
@@ -215,6 +217,11 @@ export default class extends Vue {
     });
     this.list.splice(index, 1);
   }
+  //表格每页个数修改
+  handleSizeChange() {}
+  //表格页数修改
+
+  handleCurrentChange() {}
 }
 </script>
 <style lang="scss" scoped>

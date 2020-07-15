@@ -84,7 +84,6 @@ export default class extends Vue {
     { name: "创建人", val: "status" },
     { name: "创建时间", val: "timestamp" }
   ];
-  private tableKey = 0;
   private total = 0;
   private listLoading = true;
   private listQuery = {

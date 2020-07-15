@@ -50,6 +50,8 @@ export default class extends Vue {
   @Prop() schoolKind!: number;
   @Prop() schoolVal!: number;
   @Prop() projectVal!: number;
+  tableKey: number = 0;
+
   schoolDetail: any = [];
   tabHeader: any = [
     { name: "选择课程章节名称", val: "id" },

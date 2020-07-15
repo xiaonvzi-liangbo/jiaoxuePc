@@ -5,6 +5,9 @@ export default {
     addClassPlan: '开课计划',
     classPlan: '开课计划',
     dashboard: '首页',
+    configuration: '配置管理',
+    province: '省份管理',
+    college: '院校管理'
 
   },
   //省份
@@ -25,6 +28,13 @@ export default {
     { name: "高起专", key: 0 },
     { name: "专升本", key: '1' },
   ],
+  //机构
+  mechanism: [
+    { name: "新里程教育", key: '0' },
+    { name: "钜学教育", key: '1' },
+    { name: "思学教育", key: '2' },],
+
+
   //专本科院校学历
   qualifications: [
     "本科",

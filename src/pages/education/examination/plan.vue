@@ -61,8 +61,7 @@ export default class extends Vue {
   private downloadLoading = false;
   list: any[] = [];
   projectVal = "";
-
-  private tableKey = 0;
+  tableKey: number = 0;
   private listLoading = true;
   private listQuery = {
     page: 1,

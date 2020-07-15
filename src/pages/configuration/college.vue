@@ -3,7 +3,7 @@
     <div class="screen">
       <div>搜索</div>
       <el-input placeholder="请输入学院名称" v-model="screenVal" class="screen-item"></el-input>
-      <el-button type="primary" @click="getList(screenVal)">查询</el-button>
+      <el-button type="primary" @click="getList()">查询</el-button>
     </div>
     <div class="buttonRight">
       <el-button
@@ -138,10 +138,14 @@ export default class extends Vue {
     this.dialogFormVisible = true;
   }
 
-  async getList(val: string) {
+  async getList() {
     let data;
-    if (val) {
-      data = await active.getKindListPage(this.currentPage, this.size, val);
+    if (this.screenVal) {
+      data = await active.getKindListPage(
+        this.currentPage,
+        this.size,
+        this.screenVal
+      );
     } else {
       data = await active.getKindListPage(this.currentPage, this.size);
     }
